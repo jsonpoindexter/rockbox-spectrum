@@ -1,0 +1,10 @@
+{
+  "schema": 2,
+  "id": "SpectrumPresets",
+  "version": "1.0",
+  "target": "ipod6g",
+  "license": "GPL-2.0-or-later",
+  "description": "Display-only spectrum motion, gain and guide presets",
+  "minimum_firmware_version": "1.0.0",
+  "required_skin_api": 1
+}

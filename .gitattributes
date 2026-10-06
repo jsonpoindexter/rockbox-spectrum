@@ -1,0 +1,3 @@
+# Preserve imported patch context and the canonical license text verbatim.
+*.patch -whitespace
+COPYING -whitespace

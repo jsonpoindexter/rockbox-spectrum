@@ -1,0 +1,10 @@
+__pycache__/
+*.pyc
+.DS_Store
+/build/
+/reports/
+/.toolchain/
+*.zip
+*.tar.gz
+*.tar.bz2
+*.tar.xz

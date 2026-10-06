@@ -1,0 +1,5 @@
+condition,zip_sha256,tracks_and_codec_rates,brightness_volume_eq,method,display_fps,response_ms,p95_button_ms,added_cpu_percentage_points,underruns,two_hour_stress,runtime_minutes,notes
+unmodified_4.0_baseline,,,,,,,,,,,,pending hardware measurement
+custom_spectrum_off,,,,,,,,,,,,pending hardware measurement
+custom_spectrum_on_20hz,,,,,,,,,,,,pending hardware measurement
+custom_spectrum_on_10hz_fallback,,,,,,,,,,,,only if 20 Hz fails resource/runtime gates

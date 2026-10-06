@@ -1,0 +1,20 @@
+{
+  "firmware/export/config/ipod6g.h": "4c9b81bf932df412b97c8ff76df98131688a03e81fce3ba242af370fa25771d3",
+  "apps/SOURCES": "ddb6ab09b61f9f535c9846c3c7f466da2f11994d255f60ca5bc84ae398331a44",
+  "firmware/export/pcm_mixer.h": "81275d6421dc705217dfbd44253ea8240257b6fcfbf45eb54145b0b90120f0b2",
+  "firmware/pcm_mixer.c": "8305ccd4538d2ac60212df1d7519160d2a87feb8c39f4fbb1dec365a982acdc2",
+  "lib/skin_parser/tag_table.h": "7c9b3cbd0096919a2ea5bdf34c09713db92a779ff6fa636fadaf7695e91b8991",
+  "lib/skin_parser/tag_table.c": "b3251d2f4c680f8907b29adac1c44d342173e1a5b823a6075783e9eb687b1851",
+  "apps/gui/skin_engine/wps_internals.h": "4fcda5cd9ab48db07fcf816cc4838ce514bf9374c4fa4c24650e001664229414",
+  "apps/gui/skin_engine/skin_parser.c": "d32709ecfeb73a061a994487a2307ddc37c02a7957c6523342e68e5d6b7fd105",
+  "apps/gui/skin_engine/skin_render.c": "cc77646e50616bd40a4a0706dad8949f1d4875256d2f68c8c9edddad1c834478",
+  "apps/gui/skin_engine/skin_display.c": "aff7ab5a97ed491e5a51313afb469014a524dcaf3ad0e0c03f0dba9af46c121b",
+  "apps/gui/wps.c": "6bc8287ad8ee2a491591ac7ff4f6f86738a009337542da3df1855b0645cfe8b4",
+  "apps/pcmbuf.c": "e72cf1b48587f26746715a862463fbee48faf373add7226cbd02cab7d7bcd50f",
+  "apps/plugin.h": "0e2b65921c92007835b34e06d33d493086cdbe49050062aea4594a014bc32274",
+  "apps/settings.h": "ffd9de2a9afd628102dc0fa0c961a2327cfc72552df96bb1c612b6871beec64c",
+  "apps/settings_list.c": "e68408aa5f199244f68362d3dc6ed91641a93414f8e3bcaa625c192948f8f643",
+  "apps/menus/display_menu.c": "0a95288a23a11f8581080a1bf4ec71939bf22e0064298588c96347026bb50009",
+  "apps/lang/english.lang": "c20a11c39d581366d482b185931e40c34d257c739c1dfb849b074598103c68a2",
+  "apps/debug_menu.c": "56feb717ced0e868ee4b0b8980e71342b68782eec7515bfeefb5aae6014d8a93"
+}

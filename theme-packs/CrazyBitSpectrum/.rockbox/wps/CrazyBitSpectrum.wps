@@ -1,0 +1,174 @@
+# Native spectrum adaptation, 2026-10-01, generated with Codex.
+# Theme forked by: ottop
+# CC-BY-SA https://creativecommons.org/licenses/by-sa/3.0/
+# Credits:
+# - Refer to the notice below for original credits
+# - Square Dot Digital-7 font: Sizenko Alexander / Style-7
+# - Galmuri font:
+#      Copyright © 2019–2025 Lee Minseo (quiple@quiple.dev)
+#      The font is under the SIL Open Font License, Version 1.1. https://openfontlicense.org/documents/OFL.txt
+# - LanaPixel font: Made by eishiya under CC-BY 4.0 https://creativecommons.org/licenses/by/4.0/
+
+
+# Notice from the fork I forked:
+
+# Theme by:chronicallyoffline/Cicumpunct Δ
+# CC-BY-SA
+# Credits to: chronicallyoffline for the theme he created, Chuck Lardo and D0-0K for inspiration and assets reused under CC-BY-SA and GPL V3 respectively,
+# Cicumpunct Δ
+# Date: 05-24-2025
+
+
+# Actual theme starts here
+
+# Disable Status Bar
+%wd
+
+# Clear Backdrop
+%X(d)
+
+# Preload Fonts
+%Fl(2,47-SquareDotCombined.fnt)
+%Fl(3,14-LanaPixel.fnt)
+%Fl(4,10-Sazanami-Mincho.fnt)
+%Fl(5,07-LanaPixel.fnt)
+%Fl(6,21-LanaPixel.fnt)
+%Fl(7,20-digital7mono.fnt)
+
+# Preload Images
+%xl(battery,/.rockbox/wps/CrazyBitMono/battery.bmp,0,0,10)
+%xl(playmodes,/.rockbox/wps/CrazyBitMono/playmodes.bmp,0,0,9)
+%xl(pbbd,/.rockbox/wps/CrazyBitMono/progressbar_backdrop.bmp,0,0)
+%xl(pl,/.rockbox/wps/CrazyBitMono/pl.bmp,0,0)
+%xl(plbg,/.rockbox/wps/CrazyBitMono/plbg.bmp,0,0)
+%xl(pr,/.rockbox/wps/CrazyBitMono/pr.bmp,0,0)
+%xl(prbg,/.rockbox/wps/CrazyBitMono/prbg.bmp,0,0)
+%xl(volbg,/.rockbox/wps/CrazyBitMono/volbg.bmp,0,0)
+%xl(vol,/.rockbox/wps/CrazyBitMono/vol.bmp,0,0)
+
+# Display Viewports
+%V(0,0,-,-,-)
+%?mh<%Vd(lockscreen)|%Vd(metadata)>
+
+##################################
+##### Locked (BW Monochrome) #####
+##################################
+
+# Clear Display
+%Vl(lockscreen,0,0,320,240,-)
+
+# Battery Indicator
+%Vl(lockscreen,120,160,80,-,6)
+%ac%bl%%
+
+# Charging Indicator
+%Vl(lockscreen,120,140,80,-,5)
+%ac%?bc<Charging|Voltage>
+
+# Lock Indicator
+%Vl(lockscreen,215,45,85,25,7)
+%ac%?mh<LOCKED%Vs(invert)|>
+
+# Artist
+%Vl(lockscreen,20,40,188,30,3)
+%al%s%ia
+
+# Track Title or Filename
+%Vl(lockscreen,17,65,280,30,2)
+%al%s%it
+
+# Album Title and ID3 Year
+%Vl(lockscreen,20,105,190,15,5)
+%al%s%id %(%ss(0,4, %iy)%)
+
+# Shuffle Indicator
+%Vl(lockscreen,220,109,23,12,4)
+%al%?ps<SHUF>
+
+# Repeat Indicator
+%Vl(lockscreen,245,109,35,12,4)
+%ac%?mm<|REPEAT|REPEAT|REPEAT|REPEAT>
+
+# Repeat Mode Indicator
+%Vl(lockscreen,284,109,17,12,4)
+%ar%?mm<|ALL|ONE|SFL|A-B>
+
+
+#######################
+##### Play Screen #####
+#######################
+
+# Clear Display
+%Vl(metadata,0,0,320,240,-)
+
+# Playback Mode Icons
+%Vl(metadata,20,12,25,13,-)
+%xd(playmodes,%mp)
+
+# Track Number
+%Vl(metadata,120,10,80,19,5)
+%ac%pp %Sx(of) %pe
+
+# Battery (graphical)
+%Vl(metadata,277,13,23,10,-)
+%?if(%bl,>,90)<%xd(battery,10)|%?if(%bl,>,80)<%xd(battery,9)|%?if(%bl,>,70)<%xd(battery,8)|%?if(%bl,>,60)<%xd(battery,7)|%?if(%bl,>,50)<%xd(battery,6)|%?if(%bl,>,40)<%xd(battery,5)|%?if(%bl,>,30)<%xd(battery,4)|%?if(%bl,>,20)<%xd(battery,3)|%?if(%bl,>,10)<%xd(battery,2)|%?if(%bl,>,-1)<%xd(battery,1)>>>>>>>>>>
+
+# Artist
+%Vl(metadata,20,40,188,30,3)
+#%Vf(b4b4b4)
+%al%s%ia
+
+# Codec
+%Vl(metadata,215,48,40,15,7)
+%ac%?fc<MP1|MP2|MP3|AIFF|WAV|VORBIS|FLAC|MPC|AC3|WAVPAC|ALAC|AAC|SHORTEN|SID|ADX|NSF|SPEEX|SPC|APE|WMA|WMAPRO|MOD|SAP|COOK|AAC|AC3|ATRAC3|CMC|CM3|CMR|CMS|DMC|DLT|MPT|MPD|RMT|TMC|TM8|TM2|ATRAC3|SMAF|AU|VOX|WAVE64|TRUEAUD|WMAVOX|MUSEPAK|AAC-HE|AY|VTX|GBS|HES|SGC|VGM|KSS|OPUS|AAC|UNKNOWN?>%Vs(invert)
+
+# Bitrate
+%Vl(metadata,260,48,40,15,7)
+%ac%fbk%Vs(invert)
+
+# Track Title or Filename
+%Vl(metadata,17,65,280,30,2)
+%al%s%it
+
+# Album Title and ID3 Year
+%Vl(metadata,20,105,190,15,5)
+%al%s%id %(%ss(0,4, %iy)%)
+
+# Shuffle Indicator
+%Vl(metadata,220,109,23,12,4)
+%al%?ps<SHUF>
+
+# Repeat Indicator
+%Vl(metadata,245,109,35,12,4)
+%ac%?mm<|REPEAT|REPEAT|REPEAT|REPEAT>
+
+# Repeat Mode Indicator
+%Vl(metadata,284,109,17,12,4)
+%ar%?mm<|ALL|ONE|SFL|A-B>
+
+# Native spectrum: requires this project's custom firmware
+%Vl(metadata,20,140,280,30,-)
+%pF(0,0,280,30,16,bars,mono,dots,auto,4,lanes,auto,auto,1)
+
+# Volume Level Text
+%Vl(metadata,260,178,40,10,4)
+%ac%?if(%pv, >, 0)<+|>%pvdB
+
+%Vl(metadata,30,178,35,10,4)
+%alVOL-
+
+# Volume Bar
+%Vl(metadata,60,188,200,1,-)
+%pv(0,0,200,1,vol,backdrop,volbg)
+
+# Time Elapsed
+%Vl(metadata,18,205,35,15,7)
+%al%pc
+
+# Progress Bar
+%Vl(metadata,60,208,200,11,-)
+%pb(0,0,200,9,/.rockbox/wps/CrazyBitMono/progressbar.bmp,backdrop,pbbd)
+
+# Total Track Time
+%Vl(metadata,266,205,35,15,7)
+%ac%pt

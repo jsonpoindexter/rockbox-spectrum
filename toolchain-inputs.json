@@ -1,0 +1,41 @@
+{
+  "upstream_revision": "e094c599fa60236527f9e272e0b8309d7696e399",
+  "source_archive_sha256": "5539d4bd5b8de5f3ebf1f470b637c57b13ddeab995a1972981909087a37f1abd",
+  "archive_url": "https://codeload.github.com/Rockbox/rockbox/tar.gz/e094c599fa60236527f9e272e0b8309d7696e399",
+  "downloads": [
+    {
+      "name": "binutils-2.26.1.tar.bz2",
+      "url": "https://ftp.gnu.org/gnu/binutils/binutils-2.26.1.tar.bz2",
+      "sha256": "39c346c87aa4fb14b2f786560aec1d29411b6ec34dce3fe7309fe3dd56949fd8"
+    },
+    {
+      "name": "gcc-4.9.4.tar.bz2",
+      "url": "https://ftp.gnu.org/gnu/gcc/gcc-4.9.4/gcc-4.9.4.tar.bz2",
+      "sha256": "6c11d292cd01b294f9f84c9a59c230d80e9e4a47e5c6355f046bb36d4f358092"
+    },
+    {
+      "name": "gmp-6.1.2.tar.xz",
+      "url": "https://ftp.gnu.org/gnu/gmp/gmp-6.1.2.tar.xz",
+      "sha256": "87b565e89a9a684fe4ebeeddb8399dce2599f9c9049854ca8c0dfbdea0e21912"
+    },
+    {
+      "name": "mpfr-3.1.6.tar.xz",
+      "url": "https://ftp.gnu.org/gnu/mpfr/mpfr-3.1.6.tar.xz",
+      "sha256": "7a62ac1a04408614fccdc506e4844b10cf0ad2c2b1677097f8f35d3a1344a950"
+    },
+    {
+      "name": "mpc-1.0.1.tar.gz",
+      "url": "https://ftp.gnu.org/gnu/mpc/mpc-1.0.1.tar.gz",
+      "sha256": "ed5a815cfea525dc778df0cb37468b9c1b554aaf30d9328b1431ca705b7400ff"
+    },
+    {
+      "name": "isl-0.15.tar.bz2",
+      "url": "https://gcc.gnu.org/pub/gcc/infrastructure/isl-0.15.tar.bz2",
+      "sha256": "8ceebbf4d9a81afa2b4449113cee4b7cb14a687d7a549a963deb5e2a41458b6b"
+    }
+  ],
+  "official_reference": {
+    "url": "https://download.rockbox.org/release/4.0/rockbox-ipod6g-4.0.zip",
+    "sha256": "974304b7d7fa9cd916ee15eaccb7e55707dc68c77aeb75286c4c1f62935c37ac"
+  }
+}

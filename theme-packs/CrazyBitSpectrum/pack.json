@@ -1,0 +1,10 @@
+{
+  "schema": 2,
+  "id": "CrazyBitSpectrum",
+  "version": "2.0",
+  "target": "ipod6g",
+  "license": "CC-BY-SA-3.0",
+  "description": "Adapted theme text; original CrazyBitMono assets/fonts required separately",
+  "minimum_firmware_version": "1.0.0",
+  "required_skin_api": 2
+}

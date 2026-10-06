@@ -1,0 +1,258 @@
+{
+  "legacy_commit": "ba75cb436ac70f00043d95266929d25708ee0085",
+  "upstream_revision": "e094c599fa60236527f9e272e0b8309d7696e399",
+  "firmware_version": "4.0-spectrum-v1-fast5-e094c599fa",
+  "history": "fresh public import; original history retained locally",
+  "files": [
+    {
+      "original_path": "rockbox-spectrum/.gitignore",
+      "path": ".gitignore",
+      "sha256": "862263fa1f46c20f0d1e4dac5ffcc75abd55c08211b2c3864c5f8764b9d87793"
+    },
+    {
+      "original_path": "rockbox-spectrum/COPYING",
+      "path": "COPYING",
+      "sha256": "7a3e36eb9397a31b04f504a3c7f1afe18f72ee61f38580f57025d945b0984aef"
+    },
+    {
+      "original_path": "rockbox-spectrum/Dockerfile",
+      "path": "Dockerfile",
+      "sha256": "e507d80873d0e25ff3c9b7b5b46295794d720aad3305aeb1c37c494328077c45"
+    },
+    {
+      "original_path": "rockbox-spectrum/NOTICES.md",
+      "path": "NOTICES.md",
+      "sha256": "4cb456a5cf001ef61a33efc2cf46fcb8e927b86c868d58e974ac0646f02eef55"
+    },
+    {
+      "original_path": "rockbox-spectrum/README.md",
+      "path": "README.md",
+      "sha256": "3969cb19b732330920d29d66793db1d2d1a2f028946b2dbf19207c81b0f10b2b"
+    },
+    {
+      "original_path": "rockbox-spectrum/benchmarks.csv",
+      "path": "benchmarks.csv",
+      "sha256": "e7fb9e0b7ad2f484e2b4394fdf6d31701d617ec311b602af082f3b1b319b8b88"
+    },
+    {
+      "original_path": "rockbox-spectrum/overlay/apps/gui/spectrum/analyzer.c",
+      "path": "overlay/apps/gui/spectrum/analyzer.c",
+      "sha256": "461f0426c0799df242ba65a0d9c5c6c358a43adfb1d65639a27e4604c59f638f"
+    },
+    {
+      "original_path": "rockbox-spectrum/overlay/apps/gui/spectrum/analyzer.h",
+      "path": "overlay/apps/gui/spectrum/analyzer.h",
+      "sha256": "755aeadfa4d2ea85d165d12b6a13c97612f20819d98a3043bae73cac93fa4ccc"
+    },
+    {
+      "original_path": "rockbox-spectrum/overlay/apps/gui/spectrum/capture.c",
+      "path": "overlay/apps/gui/spectrum/capture.c",
+      "sha256": "25539e06ca0436dada5c4f7a843c620b27b655f733f33045a191d4a704f9342a"
+    },
+    {
+      "original_path": "rockbox-spectrum/overlay/apps/gui/spectrum/capture.h",
+      "path": "overlay/apps/gui/spectrum/capture.h",
+      "sha256": "cebe3aa4ac905d74e3cca887ec98e276c9301864bfe71fff5a51d0b1fe73a398"
+    },
+    {
+      "original_path": "rockbox-spectrum/overlay/apps/gui/spectrum/service.c",
+      "path": "overlay/apps/gui/spectrum/service.c",
+      "sha256": "0fd849c42daf61a60a7b62fc3a11870549c9a1b281bdbd5a7607d880c23046c3"
+    },
+    {
+      "original_path": "rockbox-spectrum/overlay/apps/gui/spectrum/service.h",
+      "path": "overlay/apps/gui/spectrum/service.h",
+      "sha256": "3dbf830e7eb175bf1a2b518d2bc79c9b8cdde9142ec9798a8279be721c936c37"
+    },
+    {
+      "original_path": "rockbox-spectrum/overlay/apps/gui/spectrum/tables.h",
+      "path": "overlay/apps/gui/spectrum/tables.h",
+      "sha256": "9485f7b2968ca0a4847411ccd79f743342e299fb911973b346784893342d17d0"
+    },
+    {
+      "original_path": "rockbox-spectrum/overlay/apps/gui/spectrum/timing.c",
+      "path": "overlay/apps/gui/spectrum/timing.c",
+      "sha256": "7e5a987f313cdfefabebfbec197573c36176ba89934319fe5758804f02720bac"
+    },
+    {
+      "original_path": "rockbox-spectrum/overlay/apps/gui/spectrum/widget.h",
+      "path": "overlay/apps/gui/spectrum/widget.h",
+      "sha256": "6673fec4b17d8e91d6631ca3839dff3a0cdea0e68df9a9014f138762c04f40a1"
+    },
+    {
+      "original_path": "rockbox-spectrum/patches/0001-native-spectrum.patch",
+      "path": "patches/0001-native-spectrum.patch",
+      "sha256": "78f646698c06aaebec0e84059b4c08719882c3acacdd97596b72919e8db2b938"
+    },
+    {
+      "original_path": "rockbox-spectrum/source-files.json",
+      "path": "source-files.json",
+      "sha256": "808df8f8681f29bb6df0742596e0da1b05cc4ccf046df6e6484edcfbea5c63f2"
+    },
+    {
+      "original_path": "rockbox-spectrum/tests/analyzer_uncached.c",
+      "path": "tests/analyzer_uncached.c",
+      "sha256": "db0a23521246f56a23d57c76d1028a3d5f38341b3ce23fe6f8db099c82650c47"
+    },
+    {
+      "original_path": "rockbox-spectrum/tests/test_cadence.py",
+      "path": "tests/test_cadence.py",
+      "sha256": "96370676d60a28c5ffebfe090ef28a2d5190688710f5628f0fa70a2da7fe620c"
+    },
+    {
+      "original_path": "rockbox-spectrum/tests/test_core.c",
+      "path": "tests/test_core.c",
+      "sha256": "04c9a6bf0a3fee5987bceee1e2fee3ba4bc1b667574cbeaf67e14fe23c7507de"
+    },
+    {
+      "original_path": "rockbox-spectrum/tests/test_device_trial.py",
+      "path": "tests/test_device_trial.py",
+      "sha256": "7e88751c9dbd352ca111a02f578ca9edbecbbca250f4d450a1c6e7ccc12fcaa6"
+    },
+    {
+      "original_path": "rockbox-spectrum/tests/test_fast2_trial.py",
+      "path": "tests/test_fast2_trial.py",
+      "sha256": "308fd4a2aed220dae51cbced5cecabaa974af456ef5cb2eee5d948daaa9e4c75"
+    },
+    {
+      "original_path": "rockbox-spectrum/tests/test_pause_tail.py",
+      "path": "tests/test_pause_tail.py",
+      "sha256": "c9d7bc261dbd3bae9656197e99719b8d76b00ccaf30c2ee35a7f2e186dcd331b"
+    },
+    {
+      "original_path": "rockbox-spectrum/tests/test_service_render.py",
+      "path": "tests/test_service_render.py",
+      "sha256": "ed40397639204e90f3e93cff30d0a75f57367f9c25152bffccf2330b79a6efb8"
+    },
+    {
+      "original_path": "rockbox-spectrum/tests/test_simulator_captures.py",
+      "path": "tests/test_simulator_captures.py",
+      "sha256": "6315300df3d022c78c776e18b940b8a09a7fd9a701842d8a3a6387194b78f802"
+    },
+    {
+      "original_path": "rockbox-spectrum/tests/test_wps_exit.py",
+      "path": "tests/test_wps_exit.py",
+      "sha256": "2856a31a2ef8a6f87c7ae31950cf138e9a6af9d52e82d0c0b5467562726de505"
+    },
+    {
+      "original_path": "rockbox-spectrum/tests/widget_fast3.h",
+      "path": "tests/widget_fast3.h",
+      "sha256": "b0361f4637ad6ae6a2672f0fbea21c8297a384c7b79475eccbfc51f4fbe0b818"
+    },
+    {
+      "original_path": "rockbox-spectrum/themes/.rockbox/LaneGuides-Off.cfg",
+      "path": "themes/.rockbox/LaneGuides-Off.cfg",
+      "sha256": "7cd0cbb88c9a55ce206ee6380ba1e87aa0983678b947c164ea05f5882e67e953"
+    },
+    {
+      "original_path": "rockbox-spectrum/themes/.rockbox/LaneGuides-On.cfg",
+      "path": "themes/.rockbox/LaneGuides-On.cfg",
+      "sha256": "997bf839bf0e739bf692541c3212bd84fb39ed82fd701eab8e3e8bb168a8871e"
+    },
+    {
+      "original_path": "rockbox-spectrum/themes/.rockbox/Motion-Classic.cfg",
+      "path": "themes/.rockbox/Motion-Classic.cfg",
+      "sha256": "c186f53b3002804e3ae789a9018eddd9ec97cc5bece9166d3006f162f94312bc"
+    },
+    {
+      "original_path": "rockbox-spectrum/themes/.rockbox/Motion-Fast3.cfg",
+      "path": "themes/.rockbox/Motion-Fast3.cfg",
+      "sha256": "750af02eed9f644ff6b3de56f2fdaeb4af2dbf758a8ad22a88469142c5469b12"
+    },
+    {
+      "original_path": "rockbox-spectrum/themes/.rockbox/Motion-Punchy.cfg",
+      "path": "themes/.rockbox/Motion-Punchy.cfg",
+      "sha256": "bf860bd139c511a37a96b6204f4b476c1ba470056d891ddcbe4594cc4400a3db"
+    },
+    {
+      "original_path": "rockbox-spectrum/themes/.rockbox/Motion-Smooth.cfg",
+      "path": "themes/.rockbox/Motion-Smooth.cfg",
+      "sha256": "6322d90e2ecf06cf91cf225239010aff567651531bcf677d759ec7bc797909ed"
+    },
+    {
+      "original_path": "rockbox-spectrum/themes/.rockbox/VisualGain-Off.cfg",
+      "path": "themes/.rockbox/VisualGain-Off.cfg",
+      "sha256": "bd9e3a5f6146909e70f667e71ad566eb509452e85d4afde162d5137747a70d53"
+    },
+    {
+      "original_path": "rockbox-spectrum/themes/.rockbox/VisualGain-On.cfg",
+      "path": "themes/.rockbox/VisualGain-On.cfg",
+      "sha256": "91dc312f1cdab049954320a101ef5a99b799c4bb7a4beb910fa0b87fa10d32ab"
+    },
+    {
+      "original_path": "rockbox-spectrum/themes/.rockbox/themes/CrazyBitSpectrum.cfg",
+      "path": "themes/.rockbox/themes/CrazyBitSpectrum.cfg",
+      "sha256": "baace9b954be97ece3c689cf53441f568bf1023766f6c3ed17905bae75d302cb"
+    },
+    {
+      "original_path": "rockbox-spectrum/themes/.rockbox/themes/CrazyBitSpectrumColor.cfg",
+      "path": "themes/.rockbox/themes/CrazyBitSpectrumColor.cfg",
+      "sha256": "37ca9c72f5b33d2f408d4f02882606d3c4f67f11779ceb8fbf273f72423daf03"
+    },
+    {
+      "original_path": "rockbox-spectrum/themes/.rockbox/wps/CrazyBitSpectrum.wps",
+      "path": "themes/.rockbox/wps/CrazyBitSpectrum.wps",
+      "sha256": "808b414704ade511e167da8eba5647825272a9b099cd80e56a5c040ee650b583"
+    },
+    {
+      "original_path": "rockbox-spectrum/themes/.rockbox/wps/CrazyBitSpectrumColor.wps",
+      "path": "themes/.rockbox/wps/CrazyBitSpectrumColor.wps",
+      "sha256": "3caf650e8cdce0aee427c9a548882b9d2124a98303a1649f843f8dcdbe74940a"
+    },
+    {
+      "original_path": "rockbox-spectrum/tools/apply-patch.py",
+      "path": "tools/apply-patch.py",
+      "sha256": "63f3f34e031c480ceb9b055ad615317c0bc8e4cc208ff250e6d9c68540c540f7"
+    },
+    {
+      "original_path": "rockbox-spectrum/tools/benchmark-analyzer.py",
+      "path": "tools/benchmark-analyzer.py",
+      "sha256": "b6b701f1b7a9681bead85c3635c15c8526ed22d97cef1c64fe7220e69a71d413"
+    },
+    {
+      "original_path": "rockbox-spectrum/tools/build.py",
+      "path": "tools/build.py",
+      "sha256": "b52b0569f922078c6c454a22a19a73018a366cb5b7c8bcb09eeab0d38375d622"
+    },
+    {
+      "original_path": "rockbox-spectrum/tools/device-trial.py",
+      "path": "tools/device-trial.py",
+      "sha256": "d7d6701fb7f7224c9d3eae6194514e047b1ddff5b9a1156f0643008527f45024"
+    },
+    {
+      "original_path": "rockbox-spectrum/tools/generate-tables.py",
+      "path": "tools/generate-tables.py",
+      "sha256": "37f61bb53ad492c46440a73c936c2fd87ee62042362aef5b4447c919878c93d6"
+    },
+    {
+      "original_path": "rockbox-spectrum/tools/parser-tests.py",
+      "path": "tools/parser-tests.py",
+      "sha256": "01c9d3e861098b195d5d95cb3602ce3f8a867127d3b7e8639247ed7970701e38"
+    },
+    {
+      "original_path": "rockbox-spectrum/tools/run-tests.py",
+      "path": "tools/run-tests.py",
+      "sha256": "a7837bfa8223090f5791f23dee263362338d9cc588a60a25e2d8616b0cdc7e12"
+    },
+    {
+      "original_path": "rockbox-spectrum/tools/verify-package.py",
+      "path": "tools/verify-package.py",
+      "sha256": "114ace5d23742cca5b77fbc072da9b770e87720a253ed0d7dd80d4e8857a99d3"
+    },
+    {
+      "original_path": "rockbox-spectrum/tools/verify-simulator-captures.py",
+      "path": "tools/verify-simulator-captures.py",
+      "sha256": "15c6cdbb3aa2b68db6906784398987b67a96712f0ac7f0a333f2f65404e5f242"
+    },
+    {
+      "original_path": "rockbox-themes/ClassicSpectrum/.rockbox/themes/ClassicSpectrum.cfg",
+      "path": "optional-themes/ClassicSpectrum/.rockbox/themes/ClassicSpectrum.cfg",
+      "sha256": "1e6fcc8543b645c8bcf69d68d978838a049b089c03c9793778f672e3e1aba5d2"
+    },
+    {
+      "original_path": "rockbox-themes/ClassicSpectrum/.rockbox/wps/ClassicSpectrum.wps",
+      "path": "optional-themes/ClassicSpectrum/.rockbox/wps/ClassicSpectrum.wps",
+      "sha256": "915b248d4871696d1e6280760a2ed3ce24112072d659c9b470eb2a05305e5619"
+    }
+  ]
+}
