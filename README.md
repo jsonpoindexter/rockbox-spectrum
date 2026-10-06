@@ -15,7 +15,7 @@ First firmware version: **1.0.0**, built as **`4.0-spectrum-1.0.0-e094c599fa`**.
 - Pause/stop disable capture and animate the existing display down; stop exits after a bounded tail. Hidden WPS/backlight-off cancel animation.
 - Existing playback controls and bootloader retained. No bootloader or partition installation is included.
 
-See [architecture and controls](docs/architecture.md), [build and test](docs/build.md), [themes](docs/themes.md), and [file-only trial/recovery](docs/device-trial.md).
+Download [firmware and independent packs](docs/releases.md). See [architecture and controls](docs/architecture.md), [build and test](docs/build.md), [themes](docs/themes.md), and [file-only trial/recovery](docs/device-trial.md).
 
 ## Quick start
 
@@ -47,7 +47,7 @@ The patch is pinned to [Rockbox v4.0-final](https://github.com/Rockbox/rockbox/t
 
 Custom plugin API **275** and codec API **50** require matching firmware, plugins and codecs as one package. Stock Rockbox 4.0 cannot parse `%pF`; do not mix its executable plugins with this firmware. The included theme source depends on separately installed CrazyBitMono assets/fonts; the firmware itself has no such dependency. Custom themes and presets are never appended to the firmware ZIP. Build them independently with `tools/theme-pack.py`; see [theme packaging and styling](docs/themes.md).
 
-GitHub CI runs portable checks and native ARM64 firmware/simulator/checkwps builds, preserving reports only. This phase publishes source and CI, **not downloadable firmware releases**.
+GitHub CI runs portable checks and native ARM64 firmware/simulator/checkwps builds, preserving reports only. Verified packages are published separately as [GitHub Releases](docs/releases.md). Firmware and theme/preset packs use independent tags; experimental builds are marked pre-release.
 
 ## Maintenance and provenance
 

@@ -63,7 +63,7 @@ Portable checks cover numeric FFT reference accuracy, immutable PCM/capture owne
 
 The ARM64 job performs a baseline firmware build plus custom firmware, simulator and checkwps builds. Parser cases test valid/invalid spectrum tags; all three theme WPS files are also parsed and all four independent packs are built and verified. Package verification checks target/CRC, plugin/codec APIs, absence of custom theme/preset files and preservation of existing English language IDs against the fingerprinted official ZIP. These checks do not establish full-theme appearance or hardware boot/recovery reliability.
 
-Only reports/logs/manifests are uploaded for seven days. No firmware ZIP, compiler tree, source archive or device data is uploaded as a workflow artifact. Toolchain cache keys use exact architecture/build-input hashes without broad fallback keys.
+The CI workflow uploads only reports/logs/manifests for seven days. [Release publication](releases.md) is a separate explicit process using verified packages. No firmware ZIP, compiler tree, source archive or device data is uploaded as a workflow artifact. Toolchain cache keys use exact architecture/build-input hashes without broad fallback keys.
 
 Theme syntax checks use generated temporary solid-color BMPs, preserving sprite frame counts and rebasing only asset paths in a temporary WPS copy. No original bitmap/font packs are fetched or included. The original WPS fingerprint is recorded; artwork/font metrics and full appearance are not verified by this check.
 

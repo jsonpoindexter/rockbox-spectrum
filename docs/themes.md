@@ -13,6 +13,8 @@ Firmware and themes share this repository but have separate inputs, versions, ZI
 
 The three adapted themes require separately installed original [CrazyBit Mono theme, ID 3951](https://themes.rockbox.org/index.php?themeid=3951&target=ipod6g) SBS, icons, bitmaps and fonts, including LanaPixel. This repository redistributes adapted text only; credits remain in each source file and [NOTICES](../NOTICES.md). Preset files have no artwork dependency. Schema2 ZIP manifests record payload hashes, license, minimum firmware version, required spectrum skin API and direct asset references. Existing schema1 development packs remain supported by the installer. Install the complete original asset/font set, including assets used indirectly by its SBS; no original packs are downloaded or redistributed by our tooling.
 
+Download each pack independently from [its release](releases.md). Verify its `SHA256SUMS`, then use the installation commands below with the downloaded filename. The three theme packs require the complete original CrazyBitMono asset/font set; SpectrumPresets does not.
+
 ## Build, verify and install one pack
 
 These commands run on the host without an ARM toolchain. Use a fresh output filename:

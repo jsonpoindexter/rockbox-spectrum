@@ -1,6 +1,6 @@
 # File-only trial and recovery
 
-This project does not distribute firmware releases in this phase. Build and verify a complete local package first. Install matching custom firmware, plugins and codecs together; plugin API 275 cannot be mixed with stock 4.0 plugins. The firmware helper requires an existing ipod6g Rockbox installation. It has no theme or CrazyBitMono asset requirement. Existing theme files stay in the staged current tree; custom themes are installed separately using the [theme pack tool](themes.md).
+Download a complete firmware ZIP and its `SHA256SUMS` from the [firmware release](releases.md), or build and verify a complete local package. Verify the download before installation. Install matching custom firmware, plugins and codecs together; plugin API 275 cannot be mixed with stock 4.0 plugins. The firmware helper requires an existing ipod6g Rockbox installation. It has no theme or CrazyBitMono asset requirement. Existing theme files stay in the staged current tree; custom themes are installed separately using the [theme pack tool](themes.md).
 
 The helper does not install bootloaders, write partitions or change music outside `.rockbox`. All operations are dry-run unless `--apply` is supplied:
 
