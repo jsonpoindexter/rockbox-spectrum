@@ -1,0 +1,21 @@
+{
+  "sources": [
+    {
+      "url": "https://themes.rockbox.org/download.php?themeid=3951",
+      "sha256": "f5c60286b8aef82d1e018299bd4073edb7c4c1658f67818d015844818de33c88",
+      "format": "zip",
+      "members": [
+        {
+          "source": ".rockbox/fonts/07-LanaPixel.fnt",
+          "target": ".rockbox/fonts/WinampSpectrum-07.fnt",
+          "sha256": "0feaea4798c887ba1a4cd4785fa147d1e45f7185bdb65ea4375bbf12b5ff52b0"
+        },
+        {
+          "source": ".rockbox/fonts/14-LanaPixel.fnt",
+          "target": ".rockbox/fonts/WinampSpectrum-14.fnt",
+          "sha256": "925bb8d43846144a8c911a3c779cbf3858912663d59538e2fa79c1fa601c6944"
+        }
+      ]
+    }
+  ]
+}

@@ -14,6 +14,7 @@ from pathlib import Path, PurePosixPath
 from zipfile import ZipFile, ZipInfo, ZIP_DEFLATED
 
 from firmware_version import semver, theme_compatible
+from theme_assets import assemble
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -29,8 +30,23 @@ def safe_path(name):
     return parts
 
 
-def payload_path(name):
+def payload_path(name, meta=None):
     parts = safe_path(name)
+    if meta and meta.get('schema') == 3:
+        ident = re.escape(meta['id'])
+        patterns = [
+            r'\.rockbox/themes/' + ident + r'-(?:Detail|Visualizer)\.cfg',
+            r'\.rockbox/wps/' + ident + r'-(?:Detail|Visualizer)\.wps',
+            r'\.rockbox/wps/' + ident + r'\.sbs',
+            r'\.rockbox/wps/' + ident + r'/[A-Za-z0-9_-]+\.bmp',
+            r'\.rockbox/fonts/' + ident + r'-[A-Za-z0-9_-]+\.fnt',
+            r'\.rockbox/themes/' + ident + r'/licenses/[A-Za-z0-9_.-]+\.txt',
+        ]
+        if any(re.fullmatch(pattern, name) for pattern in patterns):
+            if parts[1] in ('fonts', 'wps') and len(parts) == 3 and len(Path(name).stem) > 32:
+                raise ValueError('Rockbox setting filename exceeds 32 characters')
+            return
+        raise ValueError('Complete theme payload must belong to its namespace: ' + name)
     if parts[0] != '.rockbox' or not (
         len(parts) == 3 and parts[1] in ('wps', 'themes') and
         name.endswith('.wps' if parts[1] == 'wps' else '.cfg') or
@@ -39,7 +55,7 @@ def payload_path(name):
 
 
 def metadata_valid(meta):
-    if meta.get('schema') not in (1, 2) or meta.get('target') != 'ipod6g' or not re.fullmatch(r'[A-Za-z][A-Za-z0-9-]*', meta.get('id', '')) or not re.fullmatch(r'[0-9]+\.[0-9]+', meta.get('version', '')):
+    if meta.get('schema') not in (1, 2, 3) or meta.get('target') != 'ipod6g' or not re.fullmatch(r'[A-Za-z][A-Za-z0-9-]*', meta.get('id', '')) or not re.fullmatch(r'[0-9]+\.[0-9]+', meta.get('version', '')):
         raise ValueError('Invalid theme pack metadata')
     if meta['schema'] == 1:
         if type(meta.get('minimum_firmware_fast')) is not int or not 4 <= meta['minimum_firmware_fast'] <= 10:
@@ -51,10 +67,19 @@ def metadata_valid(meta):
 
 def dependencies(files):
     refs = set()
-    for data in files.values():
+    for name, data in files.items():
+        if not name.endswith(('.cfg', '.wps', '.sbs')):
+            continue
         text = data.decode('utf8')
+        text = '\n'.join(line for line in text.splitlines() if not line.lstrip().startswith('#'))
         refs.update(re.findall(r'/\.rockbox/[A-Za-z0-9_./-]+\.(?:bmp|fnt|sbs|wps)', text))
-        refs.update('/.rockbox/fonts/' + name for name in re.findall(r'%Fl\(\d+,([A-Za-z0-9_-]+\.fnt)\)', text))
+        refs.update('/.rockbox/fonts/' + font for font in re.findall(r'%Fl\(\d+,([A-Za-z0-9_-]+\.fnt)[,)]', text))
+        if name.endswith(('.wps', '.sbs')):
+            for call in re.findall(r'%[A-Za-z]+\(([^)]*)\)', text):
+                for field in call.split(','):
+                    value = field.strip()
+                    if value.endswith('.bmp') and not value.startswith('/'):
+                        refs.add('/.rockbox/wps/' + Path(name).stem + '/' + value)
     refs = sorted(name.lstrip('/') for name in refs if name.lstrip('/') not in files)
     for name in refs:
         if safe_path(name)[0] != '.rockbox':
@@ -62,7 +87,51 @@ def dependencies(files):
     return refs
 
 
-def build(pack, output):
+def complete_valid(meta, files):
+    if meta['schema'] != 3:
+        return
+    if dependencies(files):
+        raise ValueError('Complete theme has missing assets: ' + ', '.join(dependencies(files)))
+    ident = meta['id']
+    required = {'.rockbox/wps/' + ident + '.sbs'}
+    for variant in ('Detail', 'Visualizer'):
+        required.update({'.rockbox/themes/' + ident + '-' + variant + '.cfg',
+                         '.rockbox/wps/' + ident + '-' + variant + '.wps'})
+    if not required.issubset(files) or not any('/licenses/' in name for name in files):
+        raise ValueError('Complete theme requires both layouts, menu skin and licenses')
+    allowed = {'wps', 'sbs', 'font', 'foreground color', 'background color',
+               'line selector start color', 'line selector end color', 'line selector text color',
+               'selector type', 'statusbar', 'scrollbar', 'show icons', 'iconset',
+               'viewers iconset', 'backdrop', 'ui viewport', 'spectrum enabled'}
+    for name, data in files.items():
+        if name.endswith('.cfg'):
+            settings = {}
+            for line in data.decode('utf8').splitlines():
+                if not line.strip() or line.lstrip().startswith('#'):
+                    continue
+                key, sep, value = line.partition(':')
+                if not sep or key.strip() not in allowed:
+                    raise ValueError('Complete theme changes nonvisual setting: ' + key)
+                key, value = key.strip(), value.strip()
+                if key in settings:
+                    raise ValueError('Duplicate complete-theme setting: ' + key)
+                settings[key] = value
+                if key in ('wps', 'sbs', 'font') and (not value.startswith('/.rockbox/') or value[1:] not in files):
+                    raise ValueError('Complete theme setting references missing asset: ' + key)
+                if key in ('iconset', 'viewers iconset', 'backdrop') and value != '-':
+                    raise ValueError('Complete theme requires skin-owned artwork: ' + key)
+                if key == 'spectrum enabled' and value != 'on':
+                    raise ValueError('Spectrum theme must enable spectrum')
+            expected_wps = '/.rockbox/wps/' + Path(name).stem + '.wps'
+            if settings.get('wps') != expected_wps or settings.get('sbs') != '/.rockbox/wps/' + ident + '.sbs' or 'font' not in settings or settings.get('spectrum enabled') != 'on':
+                raise ValueError('Complete theme cfg must select its layout, menu, font and spectrum')
+        elif name.endswith('.fnt') and not data.startswith((b'RB12', b'RB11', b'RB10')):
+            raise ValueError('Invalid Rockbox font asset')
+        elif name.endswith('.bmp') and not data.startswith(b'BM'):
+            raise ValueError('Invalid bitmap asset')
+
+
+def build(pack, output, asset_cache=None):
     if pack.is_symlink():
         raise ValueError('Pack source symlink refused')
     meta = json.loads((pack / 'pack.json').read_text())
@@ -73,8 +142,16 @@ def build(pack, output):
             raise ValueError('Pack source symlink refused')
         if path.is_file():
             name = path.relative_to(pack).as_posix()
-            payload_path(name)
+            payload_path(name, meta)
             files[name] = path.read_bytes()
+    if meta['schema'] == 3:
+        assets = assemble(pack, asset_cache or ROOT / 'build/theme-assets')
+        for name in assets:
+            payload_path(name, meta)
+            if name in files:
+                raise ValueError('Asset overwrites theme source')
+        files.update(assets)
+    complete_valid(meta, files)
     if not files:
         raise ValueError('Empty theme pack')
     meta['files'] = {name: digest(data) for name, data in files.items()}
@@ -94,7 +171,7 @@ def build(pack, output):
 
 
 def load_pack(package, expected=None):
-    if package.stat().st_size > 2 * 1024 * 1024:
+    if package.stat().st_size > 32 * 1024 * 1024:
         raise ValueError('Oversized theme ZIP')
     blob = package.read_bytes()
     if expected is not None and digest(blob) != expected:
@@ -103,24 +180,27 @@ def load_pack(package, expected=None):
         names = archive.namelist()
         if len(names) != len({name.casefold() for name in names}):
             raise ValueError('Duplicate member')
-        if len(names) > 64 or sum(item.file_size for item in archive.infolist()) > 1024 * 1024:
+        if len(names) > 256 or sum(item.file_size for item in archive.infolist()) > 64 * 1024 * 1024:
             raise ValueError('Oversized theme pack')
-        if archive.testzip():
-            raise ValueError('CRC failure')
         for item in archive.infolist():
             safe_path(item.filename)
             if item.is_dir() or (item.external_attr >> 16) & 0o170000 == 0o120000:
                 raise ValueError('Directories/symlinks are not pack payloads')
         meta = json.loads(archive.read('theme-pack.json'))
         metadata_valid(meta)
+        if meta['schema'] != 3 and (len(blob) > 2 * 1024 * 1024 or len(names) > 64 or sum(i.file_size for i in archive.infolist()) > 1024 * 1024):
+            raise ValueError('Oversized legacy theme pack')
+        if archive.testzip():
+            raise ValueError('CRC failure')
         if not meta.get('files') or set(names) != set(meta['files']) | {'theme-pack.json', 'NOTICES.md', 'COPYING'}:
             raise ValueError('Theme pack member mismatch')
         files = {}
         for name, checksum in meta['files'].items():
-            payload_path(name)
+            payload_path(name, meta)
             files[name] = archive.read(name)
             if digest(files[name]) != checksum:
                 raise ValueError('Theme pack payload hash mismatch')
+        complete_valid(meta, files)
         if meta.get('dependencies') != dependencies(files):
             raise ValueError('Theme pack dependency mismatch')
     return ({'result': 'passed', 'package_sha256': digest(blob), 'metadata': meta,
@@ -209,7 +289,7 @@ def install(args):
             path = session / 'previous' / name
             path.parent.mkdir(parents=True, exist_ok=True)
             path.write_bytes(data)
-    state = {'volume': str(volume), 'before': before, 'after': meta['files'], 'package_sha256': report['package_sha256'], 'activation': 'pending'}
+    state = {'volume': str(volume), 'before': before, 'after': meta['files'], 'package_sha256': report['package_sha256'], 'activation': 'pending', 'pack_metadata': {key: meta[key] for key in ('schema', 'id')}}
     (session / 'theme-trial.json').write_text(json.dumps(state, indent=2) + '\n')
     check_current(volume, before)
     try:
@@ -232,7 +312,7 @@ def rollback(args):
         raise ValueError('Session does not describe an installed pack on this volume')
     previous = {}
     for name, checksum in state['before'].items():
-        payload_path(name)
+        payload_path(name, state.get('pack_metadata'))
         path = checked_path(args.session.absolute() / 'previous', name)
         previous[name] = path.read_bytes() if checksum is not None else None
         if checksum is not None and digest(previous[name]) != checksum:
@@ -260,13 +340,13 @@ def rollback(args):
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     subs = parser.add_subparsers(dest='action')
-    p = subs.add_parser('build'); p.add_argument('pack', type=Path); p.add_argument('--output', type=Path, required=True)
+    p = subs.add_parser('build'); p.add_argument('pack', type=Path); p.add_argument('--output', type=Path, required=True); p.add_argument('--asset-cache', type=Path)
     p = subs.add_parser('verify'); p.add_argument('package', type=Path); p.add_argument('--sha256')
     p = subs.add_parser('install'); p.add_argument('package', type=Path); p.add_argument('--sha256', required=True)
     for p in (p, subs.add_parser('rollback')):
         p.add_argument('--volume', type=Path, required=True); p.add_argument('--session', type=Path, required=True); p.add_argument('--apply', action='store_true')
     args = parser.parse_args()
-    if args.action == 'build': print(json.dumps(build(args.pack, args.output), indent=2))
+    if args.action == 'build': print(json.dumps(build(args.pack, args.output, args.asset_cache), indent=2))
     elif args.action == 'verify': print(json.dumps(verify(args.package, args.sha256), indent=2))
     elif args.action == 'install': install(args)
     elif args.action == 'rollback': rollback(args)

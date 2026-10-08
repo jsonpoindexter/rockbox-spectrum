@@ -9,8 +9,11 @@ Packages are available on [GitHub Releases](https://github.com/jsonpoindexter/ro
 | CrazyBitSpectrum | 2.0 | [theme-crazybitspectrum-v2.0](https://github.com/jsonpoindexter/rockbox-spectrum/releases/tag/theme-crazybitspectrum-v2.0) |
 | CrazyBitSpectrumColor | 2.0 | [theme-crazybitspectrumcolor-v2.0](https://github.com/jsonpoindexter/rockbox-spectrum/releases/tag/theme-crazybitspectrumcolor-v2.0) |
 | SpectrumPresets | 1.0 | [presets-spectrum-v1.0](https://github.com/jsonpoindexter/rockbox-spectrum/releases/tag/presets-spectrum-v1.0) |
+| WinampSpectrum (Detail + Visualizer) | 1.0 | [theme-winampspectrum-v1.0](https://github.com/jsonpoindexter/rockbox-spectrum/releases/tag/theme-winampspectrum-v1.0) |
+| StudioSpectrum (Detail + Visualizer) | 1.0 | [theme-studiospectrum-v1.0](https://github.com/jsonpoindexter/rockbox-spectrum/releases/tag/theme-studiospectrum-v1.0) |
+| AdwaitaSpectrum (Detail + Visualizer) | 1.0 | [theme-adwaitaspectrum-v1.0](https://github.com/jsonpoindexter/rockbox-spectrum/releases/tag/theme-adwaitaspectrum-v1.0) |
 
-All initial tags point to source commit `2858ce13d01a95092376e43e37c103d0296b8ba2`, whose [portable and ARM64 CI jobs passed](https://github.com/jsonpoindexter/rockbox-spectrum/actions/runs/37539005995). The firmware build identifier is `4.0-spectrum-1.0.0-e094c599fa`. Documentation added after that commit does not change the compiled release.
+The original five tags point to source commit `2858ce13d01a95092376e43e37c103d0296b8ba2`, whose [portable and ARM64 CI jobs passed](https://github.com/jsonpoindexter/rockbox-spectrum/actions/runs/37539005995). The firmware build identifier is `4.0-spectrum-1.0.0-e094c599fa`. Documentation added after that commit does not change the compiled release.
 
 ## Download and install
 
@@ -24,7 +27,7 @@ The firmware release includes the build manifest, validation summary, notices, G
 
 Firmware requires an existing ipod6g Rockbox installation/bootloader. Install the complete matching firmware/plugin/codec ZIP using the [file-only installation and recovery guide](device-trial.md). Installation defaults to a dry run; preserve the recorded previous tree and recovery session. This is not a bootloader installer or an Apple firmware restore package.
 
-Styled theme packs require custom firmware 1.0.0 or newer with the declared skin API. The three themes additionally require separately installed original CrazyBitMono assets/fonts; SpectrumPresets has no artwork dependency. Use the [theme guide](themes.md), then select the theme/preset on the device. Copying pack files does not select them. Firmware updates do not install custom theme packs.
+Styled theme packs require custom firmware 1.0.0 or newer with the declared skin API. ClassicSpectrum and the two CrazyBitSpectrum packs additionally require separately installed original CrazyBitMono assets/fonts; SpectrumPresets has no artwork dependency. WinampSpectrum, StudioSpectrum and AdwaitaSpectrum are complete packs with two layouts each, including their own assets. Use the [theme guide](themes.md), then select the theme/preset on the device. Copying pack files does not select them. Firmware updates do not install custom theme packs.
 
 ## Publish a future release
 

@@ -8,6 +8,7 @@ import shutil
 import subprocess
 import sys
 import time
+from zipfile import ZipFile
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -61,14 +62,23 @@ def main():
             run(label, command)
         checker = work / 'spectrum-checkwps/spectrum-checkwps/checkwps.ipod6g'
         run('parser', [sys.executable, str(ROOT / 'tools/parser-tests.py'), str(checker), '--output', str(reports / 'parser.json')])
-        for theme in sorted((ROOT / 'theme-packs').rglob('*.wps')):
-            run('theme-' + theme.stem, [sys.executable, str(ROOT / 'tools/parse-theme.py'), str(checker), str(theme), '--output', str(reports / ('theme-' + theme.stem + '.json'))])
         for pack in sorted((ROOT / 'theme-packs').iterdir()):
             if not pack.is_dir(): continue
             meta = json.loads((pack / 'pack.json').read_text())
             output = work / 'theme-packs' / (meta['id'] + '-' + meta['version'] + '.zip')
             run('theme-pack-' + meta['id'], [sys.executable, str(ROOT / 'tools/theme-pack.py'),
-                'build', str(pack), '--output', str(output)])
+                'build', str(pack), '--output', str(output), '--asset-cache', str(work / 'theme-assets')])
+            asset_root = work / 'theme-runtime' / meta['id']
+            if meta['schema'] == 3:
+                # The builder verifies member paths and hashes before this extraction.
+                with ZipFile(str(output)) as archive:
+                    archive.extractall(str(asset_root))
+            for skin in sorted((pack / '.rockbox').rglob('*')):
+                if skin.suffix not in ('.wps', '.sbs'): continue
+                command = [sys.executable, str(ROOT / 'tools/parse-theme.py'), str(checker),
+                           str(skin), '--output', str(reports / ('theme-' + skin.name + '.json'))]
+                if meta['schema'] == 3: command += ['--asset-root', str(asset_root)]
+                run('theme-' + skin.name, command)
         run('package', [sys.executable, str(ROOT / 'tools/verify-package.py'),
                         str(work / 'spectrum-firmware/spectrum-firmware/rockbox.zip'), str(reference), '--output', str(reports / 'package.json')])
         print('All builds, parser and package checks passed')

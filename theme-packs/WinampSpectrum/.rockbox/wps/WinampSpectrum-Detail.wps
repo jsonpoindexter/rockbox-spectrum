@@ -1,0 +1,105 @@
+# WinampSpectrum 1.0. Original/adapted skin text, CC-BY-SA 3.0.
+# See /.rockbox/themes/WinampSpectrum/licenses/ATTRIBUTION.txt
+# AI-assisted with OpenAI Codex, 2026-10-08.
+# Detail layout.
+%wd
+%X(d)
+%Fl(2,WinampSpectrum-07.fnt)
+%Fl(3,WinampSpectrum-14.fnt)
+%V(0,0,320,240,-)
+%?mh<%Vd(lock)|%Vd(play)>
+
+%Vl(play,0,0,320,240,-)
+%dr(0,0,320,240,20212b)
+
+%Vl(play,4,4,312,19,0)
+%Vf(deded2)
+%dr(0,0,312,1,7e8292)%dr(0,1,1,17,7e8292)%dr(311,1,1,18,08090d)
+%Vl(play,8,8,304,8,0)
+%Vf(939c92)
+%acWINAMP / SPECTRUM
+
+%Vl(play,8,25,304,74,-)
+%dr(0,0,304,74,10130e)
+
+%Vl(play,14,26,292,28,3)
+%Vf(80ef56)
+%s%?it<%it|%fn>
+
+%Vl(play,14,54,292,22,2)
+%s%?ia<%ia|Unknown artist>
+
+%Vl(play,14,79,292,21,0)
+%Vf(939c92)
+%s%?id<%id|Unknown album> %?iy<%(%ss(0,4,%iy)%)|>
+
+%Vl(play,12,102,296,9,0)
+%Vf(939c92)
+%al%?fc<MP1|MP2|MP3|AIFF|WAV|OGG|FLAC|MPC|AC3|WV|ALAC|AAC|SHN|SID|ADX|NSF|SPX|SPC|APE|WMA|WMAPro|MOD|SAP|COOK|AAC|AC3|ATRAC|CMC|CM3|CMR|CMS|DMC|DLT|MPT|MPD|RMT|TMC|TM8|TM2|ATRAC|SMAF|AU|VOX|W64|TTA|WMA|MPC|AAC|AY|VTX|GBS|HES|SGC|VGM|KSS|OPUS|AAC|?> %fbk%ac%pp/%pe%ar%?ps<SHUF|> %?mm<|ALL|ONE|SFL|A-B>
+
+%Vl(play,12,114,296,78,-)
+%Vf(80ef56)
+%Vb(10130e)
+%pF(0,0,296,78,32,bars,classic,off,243326,6,baseline,auto,deded2,1)
+
+%Vl(play,21,195,42,9,0)
+%Vf(939c92)
+%ac100
+
+%Vl(play,68,195,42,9,0)
+%Vf(939c92)
+%ac250
+
+%Vl(play,140,195,42,9,0)
+%Vf(939c92)
+%ac1k
+
+%Vl(play,211,195,42,9,0)
+%Vf(939c92)
+%ac4k
+
+%Vl(play,258,195,42,9,0)
+%Vf(939c92)
+%ac10kHz
+
+%Vl(play,12,208,296,9,0)
+%Vf(939c92)
+%al%?mp<STOP|PLAY|PAUSE|FFWD|REW|REC|REC PAUSE|FM|FM MUTE>%acVOL %pvdB%ar%?bc<CHG |>%bl%%
+
+%Vl(play,112,219,96,2,-)
+%Vf(80ef56)
+%pv(0,0,96,2)
+
+%Vl(play,12,227,54,9,0)
+%Vf(deded2)
+%al%pc
+
+%Vl(play,254,227,54,9,0)
+%Vf(deded2)
+%ar%pt
+
+%Vl(play,70,229,178,4,-)
+%Vf(80ef56)
+%pb(0,0,178,4)
+
+%Vl(lock,0,0,320,240,-)
+%dr(0,0,320,240,20212b)
+
+%Vl(lock,16,14,288,12,0)
+%Vf(939c92)
+%alHOLD%ar%?bc<CHARGING |>%bl%%
+
+%Vl(lock,16,51,288,30,3)
+%Vf(80ef56)
+%ac%?cf<%cH:%cM|%cl:%cM %cP>
+
+%Vl(lock,16,108,288,30,3)
+%s%ac%?it<%it|%fn>
+
+%Vl(lock,16,145,288,25,2)
+%Vf(939c92)
+%s%ac%?ia<%ia|Unknown artist>
+
+%Vl(lock,16,201,288,14,0)
+%Vf(939c92)
+%al%pc / %pt%ar%?mp<STOP|PLAY|PAUSE|FFWD|REW|REC|REC PAUSE|FM|FM MUTE>

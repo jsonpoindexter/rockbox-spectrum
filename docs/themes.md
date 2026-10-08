@@ -11,9 +11,19 @@ Firmware and themes share this repository but have separate inputs, versions, ZI
 
 [ClassicSpectrum](../theme-packs/ClassicSpectrum/README.md) retains metadata, playback/battery indicators, volume, progress and Hold layout while allocating a 280×70 area to 16 bars. Its five approximate labels (100 Hz, 250 Hz, 1 kHz, 4 kHz, 10 kHz) guide the logarithmic scale; they are not exact FFT-bin or pitch readings. Version 1.3 explicitly requests the default dot appearance. Existing seven-argument WPS tags also retain that appearance.
 
-The three adapted themes require separately installed original [CrazyBit Mono theme, ID 3951](https://themes.rockbox.org/index.php?themeid=3951&target=ipod6g) SBS, icons, bitmaps and fonts, including LanaPixel. This repository redistributes adapted text only; credits remain in each source file and [NOTICES](../NOTICES.md). Preset files have no artwork dependency. Schema2 ZIP manifests record payload hashes, license, minimum firmware version, required spectrum skin API and direct asset references. Existing schema1 development packs remain supported by the installer. Install the complete original asset/font set, including assets used indirectly by its SBS; no original packs are downloaded or redistributed by our tooling.
+The three original adapted themes require separately installed original [CrazyBit Mono theme, ID 3951](https://themes.rockbox.org/index.php?themeid=3951&target=ipod6g) SBS, icons, bitmaps and fonts, including LanaPixel. This repository redistributes adapted text only; credits remain in each source file and [NOTICES](../NOTICES.md). Preset files have no artwork dependency. Schema2 ZIP manifests record payload hashes, license, minimum firmware version, required spectrum skin API and direct asset references. Existing schema1 development packs remain supported by the installer. Install the complete original asset/font set, including assets used indirectly by its SBS; those legacy packs remain text-only.
 
-Download each pack independently from [its release](releases.md). Verify its `SHA256SUMS`, then use the installation commands below with the downloaded filename. The three theme packs require the complete original CrazyBitMono asset/font set; SpectrumPresets does not.
+Download each pack independently from [its release](releases.md). Verify its `SHA256SUMS`, then use the installation commands below with the downloaded filename. The three original theme packs require the complete original CrazyBitMono asset/font set; SpectrumPresets and the new complete collection do not.
+
+## Complete collection
+
+| Pack | Version | Layouts / style |
+| --- | --- | --- |
+| [WinampSpectrum](../theme-packs/WinampSpectrum/README.md) | 1.0 | Detail / Visualizer; charcoal, pixel type, classic 32 bars |
+| [StudioSpectrum](../theme-packs/StudioSpectrum/README.md) | 1.0 | Detail 16 bars / Visualizer 32-band line; amber |
+| [AdwaitaSpectrum](../theme-packs/AdwaitaSpectrum/README.md) | 1.0 | Detail thumbnail + 16 bars / Visualizer 32 bars; light/blue |
+
+Each schema3 ZIP includes both layouts, menu skin, required fonts/images and component licenses. It needs custom firmware 1.0.0 / skin API2, with no original theme installation. Build/install commands below apply with the desired pack and ZIP names. Select `<Pack>-Detail` or `<Pack>-Visualizer` after installation. These cfg files load appearance and enable the spectrum; they preserve audio/EQ, navigation, motion/gain and backlight preferences. [Design, asset locks and simulator procedure](theme-collection.md).
 
 ## Build, verify and install one pack
 
@@ -31,7 +41,7 @@ python3 tools/theme-pack.py install build/themes/ClassicSpectrum-1.3.zip \
   --sha256 PACKAGE_SHA256 --volume /path/to/ipod --session /path/to/fresh-theme-session
 ```
 
-Repeat with `--apply` to copy only pack text files. The host session retains only overwritten theme files plus before/after hashes; it is not a new full device backup. Firmware, plugins/codecs, music and saved settings are excluded by the payload whitelist. The installer never selects the theme or loads a cfg. Safely eject, then select **Settings → Theme Settings → Browse Theme Files → ClassicSpectrum**. Ensure **Spectrum Visualizer** is On. For SpectrumPresets, load a single cfg via **Manage Settings → Browse .cfg Files**.
+Repeat with `--apply` to copy only the pack payload files. The host session retains only overwritten theme files plus before/after hashes; it is not a new full device backup. Firmware, plugins/codecs, music and saved settings are excluded by the payload whitelist. The installer never selects the theme or loads a cfg. Safely eject, then select **Settings → Theme Settings → Browse Theme Files → ClassicSpectrum**. Ensure **Spectrum Visualizer** is On. For SpectrumPresets, load a single cfg via **Manage Settings → Browse .cfg Files**.
 
 To undo a theme file update, use the recorded session (dry-run by default):
 
@@ -39,7 +49,7 @@ To undo a theme file update, use the recorded session (dry-run by default):
 python3 tools/theme-pack.py rollback --volume /path/to/ipod --session /path/to/recorded-theme-session
 ```
 
-Repeat with `--apply`. Later edits to installed theme text block rollback rather than being overwritten. Select the previous theme/settings manually if you changed them on the device. Selecting a theme can load its cfg sound settings; copying or rolling back its files does not restore saved settings.
+Repeat with `--apply`. Later edits to installed theme files block rollback rather than being overwritten. Select the previous theme/settings manually if you changed them on the device. Selecting a theme can load its cfg sound settings; copying or rolling back its files does not restore saved settings.
 
 ## Theme-owned spectrum presentation
 
@@ -67,4 +77,4 @@ Guides retain the three-pixel vertical reservation per end; the top marker is at
 
 Theme parameters control presentation only. FFT mapping, capture cadence, responsiveness, motion presets, auto gain and pause/stop descent remain firmware behavior. Modify text and bump that pack's `pack.json` version for a theme update; native changes use the firmware version in `VERSION`. Theme manifests and ZIPs stay outside the firmware manifest.
 
-CI parses all theme WPS files using generated temporary solid-color BMPs and preserved sprite frame counts. It builds/verifies all four packs independently and verifies that firmware contains none of their runtime files. It does not fetch original assets or verify their artwork/font metrics or complete physical appearance.
+CI builds/verifies all seven packs independently and verifies that firmware contains none of their runtime files. Complete-pack WPS/SBS checks load real packaged bitmaps; legacy WPS checks use synthetic bitmaps with preserved sprite frame counts. Font metrics and complete appearance require separate simulator inspection. CI does not claim physical-device validation.

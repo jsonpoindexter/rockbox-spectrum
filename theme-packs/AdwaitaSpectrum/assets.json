@@ -1,0 +1,48 @@
+{
+  "sources": [
+    {
+      "url": "https://raw.githubusercontent.com/D0-0K/adwaitapod/37688abcd7736a9e52bd690281f85a4e54fce9ed/adwaitapod/.rockbox/fonts/18-Cantarell-Regular.fnt",
+      "sha256": "ef73ef5b916f32cf68a8f5cd0cdcce7ed90f026d3881df7f666a2b2458dde26e",
+      "format": "raw",
+      "members": [
+        {
+          "target": ".rockbox/fonts/AdwaitaSpectrum-18Regular.fnt",
+          "sha256": "ef73ef5b916f32cf68a8f5cd0cdcce7ed90f026d3881df7f666a2b2458dde26e"
+        }
+      ]
+    },
+    {
+      "url": "https://raw.githubusercontent.com/D0-0K/adwaitapod/37688abcd7736a9e52bd690281f85a4e54fce9ed/adwaitapod/.rockbox/fonts/20-Cantarell-Bold.fnt",
+      "sha256": "3afa02dd103e7ba06f958261844697114f196c89413ff62e902c63dd759eec5c",
+      "format": "raw",
+      "members": [
+        {
+          "target": ".rockbox/fonts/AdwaitaSpectrum-20Bold.fnt",
+          "sha256": "3afa02dd103e7ba06f958261844697114f196c89413ff62e902c63dd759eec5c"
+        }
+      ]
+    },
+    {
+      "url": "https://raw.githubusercontent.com/D0-0K/adwaitapod/37688abcd7736a9e52bd690281f85a4e54fce9ed/adwaitapod/.rockbox/wps/adwaitapod/BatteryStatus.bmp",
+      "sha256": "88986994e89ac51e89b4693963baa026d15d905e15325b3f4aa9d1ffd01340c2",
+      "format": "raw",
+      "members": [
+        {
+          "target": ".rockbox/wps/AdwaitaSpectrum/BatteryStatus.bmp",
+          "sha256": "88986994e89ac51e89b4693963baa026d15d905e15325b3f4aa9d1ffd01340c2"
+        }
+      ]
+    },
+    {
+      "url": "https://raw.githubusercontent.com/D0-0K/adwaitapod/37688abcd7736a9e52bd690281f85a4e54fce9ed/adwaitapod/.rockbox/wps/adwaitapod/PlayStatus.bmp",
+      "sha256": "8b358b2e426d58048013d761e0a7af0a561530cef7f4886dce6c463d71161ab0",
+      "format": "raw",
+      "members": [
+        {
+          "target": ".rockbox/wps/AdwaitaSpectrum/PlayStatus.bmp",
+          "sha256": "8b358b2e426d58048013d761e0a7af0a561530cef7f4886dce6c463d71161ab0"
+        }
+      ]
+    }
+  ]
+}

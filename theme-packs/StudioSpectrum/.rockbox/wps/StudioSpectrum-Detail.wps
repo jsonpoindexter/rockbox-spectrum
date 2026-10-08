@@ -1,0 +1,99 @@
+# StudioSpectrum 1.0. Original/adapted skin text, CC-BY-SA 3.0.
+# See /.rockbox/themes/StudioSpectrum/licenses/ATTRIBUTION.txt
+# AI-assisted with OpenAI Codex, 2026-10-08.
+# Detail layout.
+%wd
+%X(d)
+%Fl(2,StudioSpectrum-07.fnt)
+%Fl(3,StudioSpectrum-14.fnt)
+%V(0,0,320,240,-)
+%?mh<%Vd(lock)|%Vd(play)>
+
+%Vl(play,0,0,320,240,-)
+%dr(0,0,320,240,11110f)
+
+%Vl(play,12,5,296,16,0)
+%Vf(a19882)
+%alSTUDIO / DETAIL%ar%?bc<CHG |>%bl%%
+
+%Vl(play,14,26,292,28,3)
+%Vf(eeb65b)
+%s%?it<%it|%fn>
+
+%Vl(play,14,54,292,22,2)
+%s%?ia<%ia|Unknown artist>
+
+%Vl(play,14,79,292,21,0)
+%Vf(a19882)
+%s%?id<%id|Unknown album> %?iy<%(%ss(0,4,%iy)%)|>
+
+%Vl(play,12,102,296,9,0)
+%Vf(a19882)
+%al%?fc<MP1|MP2|MP3|AIFF|WAV|OGG|FLAC|MPC|AC3|WV|ALAC|AAC|SHN|SID|ADX|NSF|SPX|SPC|APE|WMA|WMAPro|MOD|SAP|COOK|AAC|AC3|ATRAC|CMC|CM3|CMR|CMS|DMC|DLT|MPT|MPD|RMT|TMC|TM8|TM2|ATRAC|SMAF|AU|VOX|W64|TTA|WMA|MPC|AAC|AY|VTX|GBS|HES|SGC|VGM|KSS|OPUS|AAC|?> %fbk%ac%pp/%pe%ar%?ps<SHUF|> %?mm<|ALL|ONE|SFL|A-B>
+
+%Vl(play,12,114,296,78,-)
+%Vf(eeb65b)
+%Vb(11110f)
+%pF(0,0,296,78,16,bars,mono,dots,3c3426,6,lanes,eeb65b,ede5cf,1)
+
+%Vl(play,21,195,42,9,0)
+%Vf(a19882)
+%ac100
+
+%Vl(play,68,195,42,9,0)
+%Vf(a19882)
+%ac250
+
+%Vl(play,140,195,42,9,0)
+%Vf(a19882)
+%ac1k
+
+%Vl(play,211,195,42,9,0)
+%Vf(a19882)
+%ac4k
+
+%Vl(play,258,195,42,9,0)
+%Vf(a19882)
+%ac10kHz
+
+%Vl(play,12,208,296,9,0)
+%Vf(a19882)
+%al%?mp<STOP|PLAY|PAUSE|FFWD|REW|REC|REC PAUSE|FM|FM MUTE>%acVOL %pvdB%ar%?bc<CHG |>%bl%%
+
+%Vl(play,112,219,96,2,-)
+%Vf(eeb65b)
+%pv(0,0,96,2)
+
+%Vl(play,12,227,54,9,0)
+%Vf(ede5cf)
+%al%pc
+
+%Vl(play,254,227,54,9,0)
+%Vf(ede5cf)
+%ar%pt
+
+%Vl(play,70,229,178,4,-)
+%Vf(eeb65b)
+%pb(0,0,178,4)
+
+%Vl(lock,0,0,320,240,-)
+%dr(0,0,320,240,11110f)
+
+%Vl(lock,16,14,288,12,0)
+%Vf(a19882)
+%alHOLD%ar%?bc<CHARGING |>%bl%%
+
+%Vl(lock,16,51,288,30,3)
+%Vf(eeb65b)
+%ac%?cf<%cH:%cM|%cl:%cM %cP>
+
+%Vl(lock,16,108,288,30,3)
+%s%ac%?it<%it|%fn>
+
+%Vl(lock,16,145,288,25,2)
+%Vf(a19882)
+%s%ac%?ia<%ia|Unknown artist>
+
+%Vl(lock,16,201,288,14,0)
+%Vf(a19882)
+%al%pc / %pt%ar%?mp<STOP|PLAY|PAUSE|FFWD|REW|REC|REC PAUSE|FM|FM MUTE>
