@@ -6,6 +6,9 @@
 #include <string.h>
 struct spectrum_widget {
     int x, y, width, height, bands;
+    bool animated;
+    int effect;
+    uint32_t visual_colors[3];
     bool lines, classic, visible;
 #ifdef __PCTOOL__
     struct spectrum_widget *next;
@@ -214,6 +217,26 @@ static inline bool spectrum_widget_configure(struct spectrum_widget *w,
         w->level[i] = w->peak[i] = -72 * 256;
         w->peak_speed[i] = spectrum_motion_policy(0)->peak_start_db * 256;
     }
+    return true;
+}
+
+static inline bool visualization_widget_configure(struct spectrum_widget *w,
+    int x, int y, int width, int height, const char *effect,
+    const char *background, const char *primary, const char *accent,
+    int vp_width, int vp_height)
+{
+    if (!effect || x<0 || y<0 || width<16 || height<16 || width>320 || height>240 ||
+        x>vp_width || y>vp_height || width>vp_width-x || height>vp_height-y) return false;
+    int mode=!strcmp(effect,"feedback")?0:!strcmp(effect,"phosphor")?1:
+        !strcmp(effect,"ribbons")?2:-1;
+    uint32_t colors[3];
+    if (mode<0 || !spectrum_theme_color(background,&colors[0]) ||
+        !spectrum_theme_color(primary,&colors[1]) || !spectrum_theme_color(accent,&colors[2]) ||
+        colors[0]==SPECTRUM_COLOR_AUTO || colors[1]==SPECTRUM_COLOR_AUTO || colors[2]==SPECTRUM_COLOR_AUTO)
+        return false;
+    memset(w,0,sizeof(*w)); w->animated=true; w->effect=mode;
+    w->x=x; w->y=y; w->width=width; w->height=height;
+    memcpy(w->visual_colors,colors,sizeof(colors)); w->generation=UINT32_MAX;
     return true;
 }
 #endif

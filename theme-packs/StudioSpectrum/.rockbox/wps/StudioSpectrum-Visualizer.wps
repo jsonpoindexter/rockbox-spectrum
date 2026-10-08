@@ -1,7 +1,6 @@
-# StudioSpectrum 1.0. Original/adapted skin text, CC-BY-SA 3.0.
-# See /.rockbox/themes/StudioSpectrum/licenses/ATTRIBUTION.txt
+# StudioSpectrum 2.0. Original skin, CC-BY-SA 3.0.
 # AI-assisted with OpenAI Codex, 2026-10-08.
-# Visualizer layout.
+# Component attribution: /.rockbox/themes/StudioSpectrum/licenses/ATTRIBUTION.txt
 %wd
 %X(d)
 %Fl(2,StudioSpectrum-07.fnt)
@@ -10,82 +9,90 @@
 %?mh<%Vd(lock)|%Vd(play)>
 
 %Vl(play,0,0,320,240,-)
-%dr(0,0,320,240,11110f)
+%Vf(e4d8b4)
+%dr(0,0,320,240,181915)
 
-%Vl(play,12,5,296,16,0)
-%Vf(a19882)
-%alSTUDIO / VISUALIZER%ar%?bc<CHG |>%bl%%
+%Vl(play,55,8,1,224,-)
+%Vf(e4d8b4)
+%dr(0,0,1,224,454537)
 
-%Vl(play,12,25,296,28,3)
+%Vl(play,64,8,248,188,-)
+%Vf(e4d8b4)
+%Vb(090e0c)
+%pV(0,0,248,188,phosphor,090e0c,ffc66c,79d9a0)
+
+%Vl(play,8,12,44,9,0)
+%Vf(efb95c)
+STUDIO
+
+%Vl(play,8,37,44,9,0)
+%Vf(999a7f)
+TIME
+
+%Vl(play,8,53,44,17,2)
+%Vf(efb95c)
+%pc
+
+%Vl(play,8,82,44,9,0)
+%Vf(999a7f)
+OF %pt
+
+%Vl(play,8,109,44,9,0)
+%Vf(999a7f)
+VOL
+
+%Vl(play,8,123,44,17,2)
+%Vf(efb95c)
+%pv
+
+%Vl(play,8,155,44,9,0)
+%Vf(999a7f)
+%bl%%
+
+%Vl(play,8,178,44,9,0)
+%Vf(efb95c)
+%?mp<STOP|PLAY|PAUSE|FFWD|REW|REC|REC PAUSE|FM|FM MUTE>
+
+%Vl(play,8,202,40,3,-)
+%Vf(efb95c)
+%Vb(181915)
+%pb(0,0,40,3)
+
+%Vl(play,64,203,248,17,2)
+%Vf(e4d8b4)
 %s%?it<%it|%fn>
 
-%Vl(play,12,53,296,8,0)
-%Vf(a19882)
+%Vl(play,64,222,248,17,2)
+%Vf(999a7f)
 %s%?ia<%ia|Unknown artist>
 
-%Vl(play,12,62,296,130,-)
-%Vf(eeb65b)
-%Vb(11110f)
-%pF(0,0,296,130,32,lines,mono,off,3c3426,6,lanes,eeb65b,ede5cf,1)
-
-%Vl(play,21,195,42,9,0)
-%Vf(a19882)
-%ac100
-
-%Vl(play,68,195,42,9,0)
-%Vf(a19882)
-%ac250
-
-%Vl(play,140,195,42,9,0)
-%Vf(a19882)
-%ac1k
-
-%Vl(play,211,195,42,9,0)
-%Vf(a19882)
-%ac4k
-
-%Vl(play,258,195,42,9,0)
-%Vf(a19882)
-%ac10kHz
-
-%Vl(play,12,208,296,9,0)
-%Vf(a19882)
-%al%?mp<STOP|PLAY|PAUSE|FFWD|REW|REC|REC PAUSE|FM|FM MUTE>%acVOL %pvdB%ar%?bc<CHG |>%bl%%
-
-%Vl(play,112,219,96,2,-)
-%Vf(eeb65b)
-%pv(0,0,96,2)
-
-%Vl(play,12,227,54,9,0)
-%Vf(ede5cf)
-%al%pc
-
-%Vl(play,254,227,54,9,0)
-%Vf(ede5cf)
-%ar%pt
-
-%Vl(play,70,229,178,4,-)
-%Vf(eeb65b)
-%pb(0,0,178,4)
-
 %Vl(lock,0,0,320,240,-)
-%dr(0,0,320,240,11110f)
+%dr(0,0,320,240,181915)
 
-%Vl(lock,16,14,288,12,0)
-%Vf(a19882)
-%alHOLD%ar%?bc<CHARGING |>%bl%%
+%Vl(lock,116,16,1,208,-)
+%Vf(e4d8b4)
+%dr(0,0,1,208,454537)
 
-%Vl(lock,16,51,288,30,3)
-%Vf(eeb65b)
-%ac%?cf<%cH:%cM|%cl:%cM %cP>
+%Vl(lock,12,18,96,9,0)
+%Vf(efb95c)
+STUDIO / HOLD
 
-%Vl(lock,16,108,288,30,3)
-%s%ac%?it<%it|%fn>
+%Vl(lock,12,57,96,28,3)
+%Vf(efb95c)
+%cH:%cM
 
-%Vl(lock,16,145,288,25,2)
-%Vf(a19882)
-%s%ac%?ia<%ia|Unknown artist>
+%Vl(lock,12,105,96,9,0)
+%Vf(999a7f)
+%bl%%
 
-%Vl(lock,16,201,288,14,0)
-%Vf(a19882)
+%Vl(lock,128,72,180,28,3)
+%Vf(e4d8b4)
+%s%?it<%it|%fn>
+
+%Vl(lock,128,107,180,17,2)
+%Vf(999a7f)
+%s%?ia<%ia|Unknown artist>
+
+%Vl(lock,128,194,180,9,0)
+%Vf(efb95c)
 %al%pc / %pt%ar%?mp<STOP|PLAY|PAUSE|FFWD|REW|REC|REC PAUSE|FM|FM MUTE>

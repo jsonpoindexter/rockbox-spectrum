@@ -84,6 +84,12 @@ void spectrum_analyze(struct spectrum_analyzer *a, const int16_t *stereo,
         a->real[i] = (stereo[2 * i] - means[0]) * (int32_t)spectrum_hann[i];
         a->imag[i] = (stereo[2 * i + 1] - means[1]) * (int32_t)spectrum_hann[i];
     }
+    for (unsigned i=0;i<128;i++) for (unsigned channel=0;channel<2;channel++) {
+        int sum=0;
+        for (unsigned j=0;j<8;j++) sum+=stereo[(i*8+j)*2+channel]-means[channel];
+        int value=sum/8;
+        out->wave[i][channel]=value<-32768?-32768:value>32767?32767:value;
+    }
     transform(a);
     a->power[0] = 0;
     for (unsigned i = 1; i < SPECTRUM_SAMPLES / 2; i++) {
@@ -126,4 +132,17 @@ void spectrum_analyze(struct spectrum_analyzer *a, const int16_t *stereo,
         if (db > 0) db = 0;
         out->db[band] = db;
     }
+    out->onset=0;
+    for (int region=0;region<3;region++) {
+        int peak=SPECTRUM_FLOOR;
+        int lo=region==0?0:region==1?9:22;
+        int hi=region==0?9:region==1?22:32;
+        for (int i=lo;i<hi;i++) if (out->db[i]>peak) peak=out->db[i];
+        out->energy[region]=peak;
+        int flux=peak-a->previous_energy[region];
+        if (a->generation==out->generation && flux>out->onset) out->onset=flux;
+        a->previous_energy[region]=peak;
+    }
+    a->generation=out->generation;
+
 }

@@ -1,14 +1,23 @@
-# Complete spectrum theme collection
+# Complete animated theme collection — 2.0 preview
 
-Three independently versioned 1.0 packs, six layouts, one existing firmware API. WinampSpectrum uses charcoal panels, LanaPixel and classic 32-bar color; StudioSpectrum uses amber and a 32-band frequency line in its Visualizer layout; AdwaitaSpectrum adapts Adwaitapod's light surfaces, Cantarell typography and GNOME status artwork. Its Detail view adds album art. Each pack supplies its own WPS, menu/SBS, fonts, assets and licenses.
+The three packs now use distinct compositions and native animations. This is a
+local preview requiring firmware 1.1.0 / skin API 3, not a published release.
 
-## Layout contract
+| Pack | Detail | Immersive (`Visualizer`) |
+| --- | --- | --- |
+| WinampSpectrum | Inset feedback window beside LED time; title ticker and compact deck | Large feedback canvas above a narrow transport strip |
+| StudioSpectrum | Left data rail beside a tall amber phosphor instrument | Large orbit with time/status side rail and bottom track labels |
+| AdwaitaSpectrum | Centered album sleeve, headline title/artist and quiet ribbon band | Wide flowing canvas above airy centered captions |
 
-The canvas is 320×240. Header occupies the first 23 pixels. Detail reserves y=26–110 for metadata, y=114–191 for a 296×78 spectrum. Visualizer uses compact metadata through y=60 and a 296×130 spectrum at y=62–191. Approximate log-frequency labels share y=195; playback state/volume/battery use y=208, volume y=219 and times/progress y=227–233. Labels describe approximate frequencies, not exact bin centers or pitch detection.
+Detail retains metadata, codec/bitrate, queue/modes, volume, battery/charging,
+state and time/progress. Immersive emphasizes movement and essential track/time
+information. Hold and menus follow each pack's typography and spatial identity.
+See [design rules](../.interface-design/system.md) and [native animation API](animated-visualizers.md).
 
-Detail keeps title, artist, album/year, codec/bitrate, queue, shuffle/repeat, battery/charging, volume, state, elapsed/total time and seek progress. Visualizer intentionally removes album/codec/queue detail. Hold uses time, title, artist, battery, state and elapsed/total time, with no spectrum. The inherited backlight-on-Hold preference can turn the screen off; a theme does not override it.
-
-Font metrics are read from the actual RB12 header: LanaPixel 07 is **17 pixels tall**, 14 is **28**; Cantarell Regular 18 is **23**, Bold 20 is **21**. The filename number is not the viewport height. Small labels use Rockbox's built-in 6×8 font. Text viewports allow a complete line; long metadata scrolls without overlapping the analyzer. The menu reserves its own list viewport so the header/footer cannot be overwritten by menu entries.
+Font viewports use actual RB12 heights: Lana07 17px, Lana14 28px, Cantarell18 23px,
+Cantarell20Bold 21px. Animation cannot paint over text or artwork. Missing album
+art uses an original geometric fallback; missing metadata falls back to filename
+and unknown artist/album. Existing font/art licenses and locked sources remain.
 
 ## Packaging contract
 
@@ -20,7 +29,7 @@ Downloaded assets stay in an ignored content-addressed cache. Both the download 
 
 ## Real simulator previews
 
-Build the unchanged 1.0.0 simulator using `tools/build.py --kind simulator`. Inside a Linux environment with SDL2, Xvfb, xdotool and ImageMagick:
+Build the 1.1.0 candidate simulator using `tools/build.py --kind simulator`. Inside a Linux environment with SDL2, Xvfb, xdotool and ImageMagick:
 
 ```sh
 xvfb-run -a python3 tools/theme-preview.py \
@@ -29,7 +38,7 @@ xvfb-run -a python3 tools/theme-preview.py \
   --packages /work/theme-packs --output /reports/previews
 ```
 
-Use `docker run --init` when wrapping this command in Docker, so Xvfb's readiness signal is handled correctly. The output must be fresh. The harness creates disposable player trees, deterministic synthetic PCM and fictional metadata/cover art. It loads the actual complete theme ZIP, runs real playback and captures 320×240 PNGs plus a looping GIF. It does not access an iPod or personal music. The simulator temporarily forces the backlight on (including Hold), enables display-only gain and uses Smooth motion; none of those fixture settings enter a theme ZIP.
+Use `docker run --init` when wrapping this command in Docker, so Xvfb's readiness signal is handled correctly. The output must be fresh. The harness creates disposable player trees, deterministic synthetic PCM and fictional metadata/cover art. It loads the actual complete theme ZIP, runs real playback and captures 320×240 PNGs plus a looping GIF. With optional FFmpeg installed in the preview container, it records six seconds at 25 fps into lossless video, MP4 and GIF; sampled lossless frames feed the appearance checks. Installing this preview dependency does not change the pinned compiler inputs. It does not access an iPod or personal music. The simulator temporarily forces the backlight on (including Hold), enables display-only gain and uses Smooth motion; none of those fixture settings enter a theme ZIP.
 
 `--scenario long-metadata`, `missing-metadata` or `spectrum-off` makes separate edge-case captures; `--theme` restricts the pack. Normal captures include browser, playback, pause tail, paused state, Hold, main menu and resumed playback. Captures are evidence to inspect, not an automatic claim of visual acceptance. GIF timing is illustrative screen capture timing, not a device frame-rate measurement. Native portable animation tests remain the numeric correctness checks.
 
@@ -37,4 +46,25 @@ Use `docker run --init` when wrapping this command in Docker, so Xvfb's readines
 
 ## Validation boundary
 
-The collection changes theme source and host packaging/preview tooling only. Firmware VERSION remains 1.0.0 and the native patch/overlay fingerprints are unchanged. Simulator appearance and portable transaction tests do not establish physical iPod boot, audio, performance, battery life or installation. Release notes identify the exact source and evidence. Device-specific installation/recovery and Music/Extras navigation stay in the separate iPod record project.
+Native code and tools require portable checks plus complete firmware, simulator,
+parser and package validation. Inspect actual six-layout simulator captures and
+edge cases before presenting previews. Animated captures illustrate appearance,
+not physical frame rate. Publication and device installation follow user visual
+review and a short device trial. Device records, settings and recovery stay in
+the separate iPod project.
+
+## Review gallery
+
+With FFmpeg available, the captures include self-contained MP4 clips as well as
+GIFs. `tools/verify-animation-previews.py` checks moving animation regions,
+stable normal metadata and settled pause/off screens. Use the four capture
+folders `preview-final-normal`, `preview-final-long-metadata`,
+`preview-final-missing-metadata`, `preview-final-spectrum-off` beneath a report
+root, then generate the portable HTML review artifact:
+
+```sh
+python3 tools/theme-gallery.py reports --output reports/preview-gallery.html
+```
+
+The gallery embeds its videos/images and needs no server or external assets.
+Its stock simulator menu labels do not replace personal Music/Extras settings.

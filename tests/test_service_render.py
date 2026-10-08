@@ -27,6 +27,7 @@ STUB = r'''
 #define RGB_UNPACK_GREEN(c) (((c)>>8)&255)
 #define RGB_UNPACK_BLUE(c) ((c)&255)
 struct viewport {int unused;};
+typedef uint32_t fb_data;
 struct screen {
  void (*set_viewport_ex)(struct viewport *,int);
  unsigned (*get_foreground)(void);
@@ -36,9 +37,10 @@ struct screen {
  void (*hline)(int,int,int);
  void (*drawline)(int,int,int,int);
  void (*mono_bitmap_part)(const unsigned char *,int,int,int,int,int,int,int);
+ void (*bitmap_part)(const fb_data *,int,int,int,int,int,int,int);
 };
 struct semaphore {int unused;};
-struct {bool spectrum_enabled; int spectrum_motion; bool spectrum_auto_gain; bool spectrum_guides;} global_settings;
+struct {bool spectrum_enabled; int spectrum_motion; bool spectrum_auto_gain; bool spectrum_guides; int visualization_effect;} global_settings;
 uint32_t current_tick;
 static bool lowdata, backlight=true;
 static bool observer_registered;
@@ -92,7 +94,7 @@ static void mono(const unsigned char *src,int sx,int sy,int stride,int x,int y,i
  }
 }
 int main(void) {
- struct screen screen={viewport,get_color,color,drawmode,rectangle,line,diagonal,mono};
+ struct screen screen={viewport,get_color,color,drawmode,rectangle,line,diagonal,mono,NULL};
  struct viewport vp;
  int heights[]={2,3,7,30,59,240};
  initialized=latest_valid=capture.enabled=true;capture.generation=latest.generation=1;
@@ -159,7 +161,7 @@ def main():
   results=[]
   for name,source,flags in [('full_per_row',tmp/'reference.c',['-DFORCEFULL']),('full_batched',CORE/'service.c',['-DFORCEFULL']),('dirty',CORE/'service.c',[])]:
    c=tmp/(name+'.c');c.write_text(HARNESS.replace('SERVICE_SOURCE',str(source)));exe=tmp/name
-   subprocess.run(['cc','-std=c99','-O1','-Wall','-Wextra','-Werror','-fsanitize=address,undefined','-I',str(tmp),'-I',str(CORE),*flags,str(c),str(CORE/'capture.c'),str(CORE/'analyzer.c'),'-o',str(exe)],check=True)
+   subprocess.run(['cc','-std=c99','-O1','-Wall','-Wextra','-Werror','-fsanitize=address,undefined','-fno-sanitize-recover=all','-I',str(tmp),'-I',str(CORE),*flags,str(c),str(CORE/'capture.c'),str(CORE/'analyzer.c'),str(CORE/'visualizer.c'),'-o',str(exe)],check=True)
    run=subprocess.run([str(exe)],capture_output=True)
    if run.returncode:raise RuntimeError(run.stderr.decode())
    count,calls,unchanged=map(int,run.stderr.split());assert len(run.stdout)==count*8

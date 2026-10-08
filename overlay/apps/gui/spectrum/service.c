@@ -4,6 +4,7 @@
 #include "config.h"
 #include "service.h"
 #include "capture.h"
+#include "visualizer.h"
 #include "kernel.h"
 #include "thread.h"
 #include "pcm.h"
@@ -25,6 +26,11 @@
 static struct spectrum_capture capture;
 static struct spectrum_analyzer analyzer;
 static struct spectrum_frame latest;
+static struct visualization visual;
+static fb_data visual_rows[320*2];
+static uint32_t visual_draw_us;
+static bool visual_submission;
+typedef char visual_pool_budget[(sizeof(visual)+sizeof(visual_rows)<=256*1024)?1:-1];
 static struct semaphore available;
 static long worker_stack[DEFAULT_STACK_SIZE * 4 / sizeof(long)];
 static unsigned long worker_id;
@@ -69,6 +75,9 @@ void spectrum_record_submission(uint32_t us)
     pcm_play_lock();
     uint32_t now = spectrum_clock_us();
     measure(3, us);
+    if (visual_submission) {
+        visualization_cost(&visual,visual_draw_us+us); visual_submission=false;
+    }
     if (cadence_started) measure(5, now - previous_submit_us);
     previous_submit_us = now; cadence_started = true;
     if (pending_sequence != submitted_sequence) {
@@ -257,6 +266,24 @@ bool spectrum_draw(struct screen *screen, struct spectrum_widget *w, struct view
     if (fresh) for (int i = 0; i < 32; i++)
         if (frame.db[i] > raw_peak) raw_peak = frame.db[i];
     spectrum_widget_gain(w, global_settings.spectrum_auto_gain, fresh, raw_peak, dt, HZ);
+    if (w->animated) {
+        if (!visualization_render(&visual,w,&frame,fresh,fading,w->visual_gain,
+            global_settings.visualization_effect,generation,now,HZ,!w->cache_valid)) return false;
+        for (int y=0;y<w->height;y+=2) {
+            for (int x=0;x<w->width;x++) {
+                uint32_t rgb=visualization_pixel(&visual,x/2,y/2);
+                visual_rows[x]=visual_rows[w->width+x]=theme_rgb(rgb);
+            }
+            screen->bitmap_part(visual_rows,0,0,w->width,w->x,w->y+y,
+                                w->width,y+1<w->height?2:1);
+        }
+        w->dirty_x=w->x; w->dirty_y=w->y;
+        w->dirty_width=w->width; w->dirty_height=w->height; w->cache_valid=true;
+        if (fresh) { pending_sequence=visual.frame_sequence; pending_capture_us=visual.capture_us; }
+        uint32_t elapsed=spectrum_clock_us()-start;
+        measure(2,elapsed); visual_draw_us=elapsed; visual_submission=true;
+        return true;
+    }
     bool guides = global_settings.spectrum_guides && !w->lines &&
         w->guide_style != SPECTRUM_GUIDE_OFF && w->height >= 8 &&
         w->width >= (2 * w->bar_inset + 6) * w->bands;

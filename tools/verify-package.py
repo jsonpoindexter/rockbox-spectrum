@@ -36,9 +36,12 @@ def verify(package, official):
             raise ValueError('Matching FFT plugin missing')
         plugin_api = version.plugin_api
         expected_extra = {884: b'Spectrum Visualizer'}
-        if plugin_api == 275:
+        if plugin_api >= 275:
             expected_extra.update({885: b'Spectrum Motion', 886: b'Fast3', 887: b'Smooth',
                 888: b'Punchy', 889: b'Classic', 890: b'Spectrum Auto Gain', 891: b'Spectrum Lane Guides'})
+        if plugin_api >= 276:
+            expected_extra.update(dict(enumerate([b'Visualization Effect', b'Theme Default',
+                b'Feedback Tunnel', b'Phosphor Orbit', b'Flowing Ribbons', b'Auto Cycle'],892)))
         plugins = codecs = 0
         for name in names:
             if name.endswith('.rock'):

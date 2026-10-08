@@ -1,99 +1,58 @@
-# AdwaitaSpectrum 1.0. Original/adapted skin text, CC-BY-SA 3.0.
-# See /.rockbox/themes/AdwaitaSpectrum/licenses/ATTRIBUTION.txt
+# AdwaitaSpectrum 2.0. Original skin, CC-BY-SA 3.0.
 # AI-assisted with OpenAI Codex, 2026-10-08.
-# Visualizer layout.
+# Component attribution: /.rockbox/themes/AdwaitaSpectrum/licenses/ATTRIBUTION.txt
 %wd
 %X(d)
 %Fl(2,AdwaitaSpectrum-18Regular.fnt)
 %Fl(3,AdwaitaSpectrum-20Bold.fnt)
-%xl(bat,/.rockbox/wps/AdwaitaSpectrum/BatteryStatus.bmp,0,0,12)
-%xl(state,/.rockbox/wps/AdwaitaSpectrum/PlayStatus.bmp,0,0,9)
 %V(0,0,320,240,-)
 %?mh<%Vd(lock)|%Vd(play)>
 
 %Vl(play,0,0,320,240,-)
+%Vf(292829)
 %dr(0,0,320,240,f6f5f4)
 
-%Vl(play,34,5,252,16,0)
-%Vf(5e5c64)
-%alNOW PLAYING%ar%?bc<CHG |>%bl%%
-
-%Vl(play,12,3,16,16,-)
-%xd(state,%mp)
-
-%Vl(play,292,3,16,16,-)
-%xd(bat,%bl)
-
-%Vl(play,12,25,296,23,2)
-%s%?it<%it|%fn>
-
-%Vl(play,12,49,296,9,0)
-%Vf(5e5c64)
-%s%?ia<%ia|Unknown artist>
-
-%Vl(play,12,62,296,130,-)
-%Vf(3584e4)
-%Vb(ffffff)
-%pF(0,0,296,130,32,bars,mono,off,d0d5dc,6,baseline,3584e4,292829,1)
-
-%Vl(play,21,195,42,9,0)
-%Vf(5e5c64)
-%ac100
-
-%Vl(play,68,195,42,9,0)
-%Vf(5e5c64)
-%ac250
-
-%Vl(play,140,195,42,9,0)
-%Vf(5e5c64)
-%ac1k
-
-%Vl(play,211,195,42,9,0)
-%Vf(5e5c64)
-%ac4k
-
-%Vl(play,258,195,42,9,0)
-%Vf(5e5c64)
-%ac10kHz
-
-%Vl(play,12,208,296,9,0)
-%Vf(5e5c64)
-%al%?mp<STOP|PLAY|PAUSE|FFWD|REW|REC|REC PAUSE|FM|FM MUTE>%acVOL %pvdB%ar%?bc<CHG |>%bl%%
-
-%Vl(play,112,219,96,2,-)
-%Vf(3584e4)
-%pv(0,0,96,2)
-
-%Vl(play,12,227,54,9,0)
+%Vl(play,12,8,296,158,-)
 %Vf(292829)
-%al%pc
+%Vb(f6f5f4)
+%pV(0,0,296,158,ribbons,f6f5f4,3584e4,b47bda)
 
-%Vl(play,254,227,54,9,0)
+%Vl(play,20,176,280,24,3)
 %Vf(292829)
-%ar%pt
+%ac%s%?it<%it|%fn>
 
-%Vl(play,70,229,178,4,-)
+%Vl(play,20,203,280,23,2)
+%Vf(77717d)
+%ac%s%?ia<%ia|Unknown artist>
+
+%Vl(play,16,231,288,9,0)
+%Vf(77717d)
+%al%pc%ac%?mp<STOP|PLAY|PAUSE|FFWD|REW|REC|REC PAUSE|FM|FM MUTE>%ar%pt
+
+%Vl(play,16,168,288,2,-)
 %Vf(3584e4)
-%pb(0,0,178,4)
+%Vb(f6f5f4)
+%pb(0,0,288,2)
 
 %Vl(lock,0,0,320,240,-)
 %dr(0,0,320,240,f6f5f4)
 
-%Vl(lock,16,14,288,12,0)
-%Vf(5e5c64)
-%alHOLD%ar%?bc<CHARGING |>%bl%%
+%Vl(lock,20,15,280,9,0)
+%Vf(77717d)
+%alHOLD%ar%bl%%
 
-%Vl(lock,16,51,288,30,3)
+%Vl(lock,20,58,280,24,3)
 %Vf(3584e4)
-%ac%?cf<%cH:%cM|%cl:%cM %cP>
+%ac%cH:%cM
 
-%Vl(lock,16,108,288,30,3)
-%s%ac%?it<%it|%fn>
+%Vl(lock,20,117,280,24,3)
+%Vf(292829)
+%ac%s%?it<%it|%fn>
 
-%Vl(lock,16,145,288,25,2)
-%Vf(5e5c64)
-%s%ac%?ia<%ia|Unknown artist>
+%Vl(lock,20,149,280,23,2)
+%Vf(77717d)
+%ac%s%?ia<%ia|Unknown artist>
 
-%Vl(lock,16,201,288,14,0)
-%Vf(5e5c64)
+%Vl(lock,20,218,280,9,0)
+%Vf(77717d)
 %al%pc / %pt%ar%?mp<STOP|PLAY|PAUSE|FFWD|REW|REC|REC PAUSE|FM|FM MUTE>

@@ -34,7 +34,8 @@ def firmware(info):
         release = semver(public.group(1))
         if release[0] != 1:
             raise ValueError('Unsupported spectrum major version')
-        return Firmware(release, None, 275, 2)
+        return Firmware(release, None, 276 if release >= (1, 1, 0) else 275,
+                        3 if release >= (1, 1, 0) else 2)
     legacy = re.fullmatch(r'4\.0-spectrum-v1-(?:fast([1-9][0-9]*)-)?[0-9a-f]{10}', version)
     if legacy:
         fast = int(legacy.group(1) or 0)

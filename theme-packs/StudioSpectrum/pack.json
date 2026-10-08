@@ -1,10 +1,10 @@
 {
   "schema": 3,
   "id": "StudioSpectrum",
-  "version": "1.0",
+  "version": "2.0",
   "target": "ipod6g",
   "license": "CC-BY-SA-3.0; bundled assets retain component licenses",
-  "description": "Complete Detail and Visualizer themes, menu skin, fonts and component licenses",
-  "minimum_firmware_version": "1.0.0",
-  "required_skin_api": 2
+  "description": "Distinct Detail and immersive Visualizer layouts with native music animations",
+  "minimum_firmware_version": "1.1.0",
+  "required_skin_api": 3
 }

@@ -1,109 +1,99 @@
-# AdwaitaSpectrum 1.0. Original/adapted skin text, CC-BY-SA 3.0.
-# See /.rockbox/themes/AdwaitaSpectrum/licenses/ATTRIBUTION.txt
+# AdwaitaSpectrum 2.0. Original skin, CC-BY-SA 3.0.
 # AI-assisted with OpenAI Codex, 2026-10-08.
-# Detail layout.
+# Component attribution: /.rockbox/themes/AdwaitaSpectrum/licenses/ATTRIBUTION.txt
 %wd
 %X(d)
 %Fl(2,AdwaitaSpectrum-18Regular.fnt)
 %Fl(3,AdwaitaSpectrum-20Bold.fnt)
-%xl(bat,/.rockbox/wps/AdwaitaSpectrum/BatteryStatus.bmp,0,0,12)
-%xl(state,/.rockbox/wps/AdwaitaSpectrum/PlayStatus.bmp,0,0,9)
 %V(0,0,320,240,-)
 %?mh<%Vd(lock)|%Vd(play)>
 
 %Vl(play,0,0,320,240,-)
+%Vf(292829)
 %dr(0,0,320,240,f6f5f4)
 
-%Vl(play,34,5,252,16,0)
-%Vf(5e5c64)
-%alNOW PLAYING%ar%?bc<CHG |>%bl%%
-
-%Vl(play,12,3,16,16,-)
-%xd(state,%mp)
-
-%Vl(play,292,3,16,16,-)
-%xd(bat,%bl)
-
 %V(0,0,320,240,-)
-%?mh<|%Cl(12,27,58,58)%?C<%Cd|%dr(12,27,58,58,e2e5e9)%dr(28,50,5,18,9ba6b3)%dr(38,40,5,28,9ba6b3)%dr(48,46,5,22,9ba6b3)>>
-%Vl(play,80,26,228,26,3)
+%?mh<|%Cl(110,62,100,100)%?C<%Cd|%dr(110,62,100,100,e6e2e9)%dr(139,97,3,37,b47bda)%dr(153,80,3,54,3584e4)%dr(167,104,3,30,b47bda)>>
+
+%Vl(play,16,5,288,24,3)
 %Vf(292829)
-%s%?it<%it|%fn>
+%ac%s%?it<%it|%fn>
 
-%Vl(play,80,53,228,23,2)
-%s%?ia<%ia|Unknown artist>
+%Vl(play,16,32,288,23,2)
+%Vf(77717d)
+%ac%s%?ia<%ia|Unknown artist>
 
-%Vl(play,80,77,228,23,2)
-%Vf(5e5c64)
-%s%?id<%id|Unknown album> %?iy<%(%ss(0,4,%iy)%)|>
 
-%Vl(play,12,102,296,9,0)
-%Vf(5e5c64)
-%al%?fc<MP1|MP2|MP3|AIFF|WAV|OGG|FLAC|MPC|AC3|WV|ALAC|AAC|SHN|SID|ADX|NSF|SPX|SPC|APE|WMA|WMAPro|MOD|SAP|COOK|AAC|AC3|ATRAC|CMC|CM3|CMR|CMS|DMC|DLT|MPT|MPD|RMT|TMC|TM8|TM2|ATRAC|SMAF|AU|VOX|W64|TTA|WMA|MPC|AAC|AY|VTX|GBS|HES|SGC|VGM|KSS|OPUS|AAC|?> %fbk%ac%pp/%pe%ar%?ps<SHUF|> %?mm<|ALL|ONE|SFL|A-B>
 
-%Vl(play,12,114,296,78,-)
-%Vf(3584e4)
-%Vb(ffffff)
-%pF(0,0,296,78,16,bars,mono,dots,d0d5dc,6,baseline,3584e4,292829,1)
+%Vl(play,16,71,84,9,0)
+%Vf(77717d)
+ALBUM
 
-%Vl(play,21,195,42,9,0)
-%Vf(5e5c64)
-%ac100
-
-%Vl(play,68,195,42,9,0)
-%Vf(5e5c64)
-%ac250
-
-%Vl(play,140,195,42,9,0)
-%Vf(5e5c64)
-%ac1k
-
-%Vl(play,211,195,42,9,0)
-%Vf(5e5c64)
-%ac4k
-
-%Vl(play,258,195,42,9,0)
-%Vf(5e5c64)
-%ac10kHz
-
-%Vl(play,12,208,296,9,0)
-%Vf(5e5c64)
-%al%?mp<STOP|PLAY|PAUSE|FFWD|REW|REC|REC PAUSE|FM|FM MUTE>%acVOL %pvdB%ar%?bc<CHG |>%bl%%
-
-%Vl(play,112,219,96,2,-)
-%Vf(3584e4)
-%pv(0,0,96,2)
-
-%Vl(play,12,227,54,9,0)
+%Vl(play,16,87,84,23,2)
 %Vf(292829)
-%al%pc
+%s%?id<%id|Unknown album>
 
-%Vl(play,254,227,54,9,0)
+%Vl(play,16,115,84,9,0)
+%Vf(77717d)
+%?iy<%ss(0,4,%iy)|>
+
+%Vl(play,16,141,84,9,0)
+%Vf(77717d)
+VOL %pv
+
+%Vl(play,222,71,82,9,0)
+%Vf(77717d)
+%ar%?bc<CHG |>%bl%%
+
+%Vl(play,222,96,82,9,0)
+%Vf(77717d)
+%ar%pp / %pe
+
+%Vl(play,222,120,82,9,0)
+%Vf(77717d)
+%ar%?fc<MP1|MP2|MP3|AIFF|WAV|OGG|FLAC|MPC|AC3|WV|ALAC|AAC|SHN|SID|ADX|NSF|SPX|SPC|APE|WMA|WMAPro|MOD|SAP|COOK|AAC|AC3|ATRAC|CMC|CM3|CMR|CMS|DMC|DLT|MPT|MPD|RMT|TMC|TM8|TM2|ATRAC|SMAF|AU|VOX|W64|TTA|WMA|MPC|AAC|AY|VTX|GBS|HES|SGC|VGM|KSS|OPUS|AAC|?> %fbk
+
+%Vl(play,222,144,82,9,0)
+%Vf(77717d)
+%ar%?ps<SHUF|> %?mm<|ALL|ONE|SFL|A-B>
+
+%Vl(play,16,174,288,32,-)
 %Vf(292829)
-%ar%pt
+%Vb(f6f5f4)
+%pV(0,0,288,32,ribbons,f6f5f4,3584e4,b47bda)
 
-%Vl(play,70,229,178,4,-)
+%Vl(play,16,215,288,9,0)
+%Vf(77717d)
+%al%pc%ar%pt
+
+%Vl(play,60,218,200,2,-)
 %Vf(3584e4)
-%pb(0,0,178,4)
+%Vb(f6f5f4)
+%pb(0,0,200,2)
+
+%Vl(play,16,231,288,9,0)
+%Vf(77717d)
+%ac%?mp<STOP|PLAY|PAUSE|FFWD|REW|REC|REC PAUSE|FM|FM MUTE>
 
 %Vl(lock,0,0,320,240,-)
 %dr(0,0,320,240,f6f5f4)
 
-%Vl(lock,16,14,288,12,0)
-%Vf(5e5c64)
-%alHOLD%ar%?bc<CHARGING |>%bl%%
+%Vl(lock,20,15,280,9,0)
+%Vf(77717d)
+%alHOLD%ar%bl%%
 
-%Vl(lock,16,51,288,30,3)
+%Vl(lock,20,58,280,24,3)
 %Vf(3584e4)
-%ac%?cf<%cH:%cM|%cl:%cM %cP>
+%ac%cH:%cM
 
-%Vl(lock,16,108,288,30,3)
-%s%ac%?it<%it|%fn>
+%Vl(lock,20,117,280,24,3)
+%Vf(292829)
+%ac%s%?it<%it|%fn>
 
-%Vl(lock,16,145,288,25,2)
-%Vf(5e5c64)
-%s%ac%?ia<%ia|Unknown artist>
+%Vl(lock,20,149,280,23,2)
+%Vf(77717d)
+%ac%s%?ia<%ia|Unknown artist>
 
-%Vl(lock,16,201,288,14,0)
-%Vf(5e5c64)
+%Vl(lock,20,218,280,9,0)
+%Vf(77717d)
 %al%pc / %pt%ar%?mp<STOP|PLAY|PAUSE|FFWD|REW|REC|REC PAUSE|FM|FM MUTE>

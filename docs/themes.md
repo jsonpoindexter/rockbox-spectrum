@@ -1,6 +1,6 @@
 # Independent themes and presets
 
-Firmware and themes share this repository but have separate inputs, versions, ZIPs and installation commands. `build.py` packages firmware and matching executables with upstream default themes; it never appends our text themes or presets. Firmware installation has no CrazyBitMono requirement and preserves already installed themes. Theme-only updates need no compiler, firmware rebuild or firmware replacement once firmware 1.0.0 is installed.
+Firmware and themes share this repository but have separate inputs, versions, ZIPs and installation commands. `build.py` packages firmware and matching executables with upstream default themes; it never appends our text themes or presets. Firmware installation has no CrazyBitMono requirement and preserves already installed themes. Theme-only updates need no compiler, firmware rebuild or firmware replacement once their minimum firmware is installed.
 
 | Pack source | Version | Minimum custom firmware | Runtime files |
 | --- | --- | --- | --- |
@@ -19,11 +19,14 @@ Download each pack independently from [its release](releases.md). Verify its `SH
 
 | Pack | Version | Layouts / style |
 | --- | --- | --- |
-| [WinampSpectrum](../theme-packs/WinampSpectrum/README.md) | 1.0 | Detail / Visualizer; charcoal, pixel type, classic 32 bars |
-| [StudioSpectrum](../theme-packs/StudioSpectrum/README.md) | 1.0 | Detail 16 bars / Visualizer 32-band line; amber |
-| [AdwaitaSpectrum](../theme-packs/AdwaitaSpectrum/README.md) | 1.0 | Detail thumbnail + 16 bars / Visualizer 32 bars; light/blue |
+| [WinampSpectrum](../theme-packs/WinampSpectrum/README.md) | 2.0 preview | Transport deck / immersive feedback tunnel |
+| [StudioSpectrum](../theme-packs/StudioSpectrum/README.md) | 2.0 preview | Instrument panel / immersive phosphor orbit |
+| [AdwaitaSpectrum](../theme-packs/AdwaitaSpectrum/README.md) | 2.0 preview | Album-first / immersive flowing ribbons |
 
-Each schema3 ZIP includes both layouts, menu skin, required fonts/images and component licenses. It needs custom firmware 1.0.0 / skin API2, with no original theme installation. Build/install commands below apply with the desired pack and ZIP names. Select `<Pack>-Detail` or `<Pack>-Visualizer` after installation. These cfg files load appearance and enable the spectrum; they preserve audio/EQ, navigation, motion/gain and backlight preferences. [Design, asset locks and simulator procedure](theme-collection.md).
+The 2.0 candidates require firmware 1.1.0 / skin API 3. Published 1.0 packs continue
+to require firmware 1.0.0 / skin API 2. Each schema 3 ZIP includes both layouts, menu
+skin, fonts/assets and component licenses. Theme cfgs preserve audio/EQ, effect,
+nav, gain and backlight settings. [Design and preview procedure](theme-collection.md).
 
 ## Build, verify and install one pack
 
@@ -78,3 +81,8 @@ Guides retain the three-pixel vertical reservation per end; the top marker is at
 Theme parameters control presentation only. FFT mapping, capture cadence, responsiveness, motion presets, auto gain and pause/stop descent remain firmware behavior. Modify text and bump that pack's `pack.json` version for a theme update; native changes use the firmware version in `VERSION`. Theme manifests and ZIPs stay outside the firmware manifest.
 
 CI builds/verifies all seven packs independently and verifies that firmware contains none of their runtime files. Complete-pack WPS/SBS checks load real packaged bitmaps; legacy WPS checks use synthetic bitmaps with preserved sprite frame counts. Font metrics and complete appearance require separate simulator inspection. CI does not claim physical-device validation.
+
+## Native animated viewport
+
+Firmware1.1.0 adds `%pV` for independent animation effects and palettes. See the
+[API and controls](animated-visualizers.md). Existing `%pF` styles are unchanged.

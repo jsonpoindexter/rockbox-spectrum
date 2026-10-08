@@ -2,9 +2,9 @@
 
 ## Firmware version
 
-`VERSION` is the single source for our semantic firmware version, initially **1.0.0**. Custom firmware, simulator and checkwps builds use `4.0-spectrum-1.0.0-e094c599fa`: the Rockbox base, our release and pinned upstream source. Build manifests record the release and VERSION-file hash. A baseline build keeps its distinct `4.0-baseline-e094c599fa` label.
+`VERSION` is the single source for our semantic firmware version, currently **1.1.0 (local preview)**; the first release was 1.0.0. Custom firmware, simulator and checkwps builds use `4.0-spectrum-1.1.0-e094c599fa`: the Rockbox base, our release and pinned upstream source. Build manifests record the release and VERSION-file hash. A baseline build keeps its distinct `4.0-baseline-e094c599fa` label.
 
-Package/installer checks use the shared `tools/firmware_version.py` parser. Version 1.x uses plugin API275, codec API50 and spectrum skin API2 (optional styling). A new major requires an explicit compatibility update. Minor/patch versions must preserve those interfaces. Theme packs declare minimum semantic firmware and required skin API independently of their theme version.
+Package/installer checks use the shared `tools/firmware_version.py` parser. Version 1.0.0 uses plugin API275 and skin API2. Version 1.1.0 uses plugin API276 and skin API3, retaining the older skin syntax. Codec API50 is unchanged. The new settings/widget layouts require replacing plugins together with the firmware; never mix compiled plugins across these releases. Version-to-ABI mappings are explicit in the parser and tests. Patch releases preserve their interfaces; future ABI changes require another mapping update. A new major also requires explicit parser support. Theme packs declare minimum semantic firmware and required skin API independently of their theme version.
 
 Legacy `4.0-spectrum-v1[-fastN]-e094c599fa` development names are recognized only for compatibility and recovery: fast4+ has the controls/API275, and fast10+ has styled skin API2. They are not mapped to a published semantic release. New builds always use VERSION. Original tests, motion preset names, provenance and device history retain their historical labels.
 

@@ -10,7 +10,7 @@
  #endif
 --- a/apps/SOURCES
 +++ b/apps/SOURCES
-@@ -91,6 +91,12 @@
+@@ -91,6 +91,13 @@
  #endif
  
  gui/wps.c
@@ -18,6 +18,7 @@
 +gui/spectrum/analyzer.c
 +gui/spectrum/capture.c
 +gui/spectrum/service.c
++gui/spectrum/visualizer.c
 +gui/spectrum/timing.c
 +#endif
  gui/scrollbar.c
@@ -86,20 +87,22 @@
  
  enum skin_token_type {
  
-@@ -194,6 +195,7 @@
+@@ -194,6 +195,8 @@
      SKIN_TOKEN_PLAYER_PROGRESSBAR,
      /* Peakmeter */
      SKIN_TOKEN_PEAKMETER,
 +    SKIN_TOKEN_SPECTRUM,
++    SKIN_TOKEN_VISUALIZATION,
      SKIN_TOKEN_PEAKMETER_LEFT,
      SKIN_TOKEN_PEAKMETER_LEFTBAR,
      SKIN_TOKEN_PEAKMETER_RIGHT,
 --- a/lib/skin_parser/tag_table.c
 +++ b/lib/skin_parser/tag_table.c
-@@ -148,6 +148,7 @@
+@@ -148,6 +148,8 @@
      TAG(SKIN_TOKEN_PLAYBACK_STATUS,       "mp", "", SKIN_REFRESH_DYNAMIC),
      TAG(SKIN_TOKEN_BUTTON_VOLUME,         "mv", "|D", SKIN_REFRESH_DYNAMIC),
  
++    TAG(SKIN_TOKEN_VISUALIZATION,        "pV", "IIIISSSS", SKIN_REFRESH_SPECTRUM),
 +    TAG(SKIN_TOKEN_SPECTRUM,             "pF", "IIIIISS|SSISSSI", SKIN_REFRESH_SPECTRUM),
      TAG(SKIN_TOKEN_PEAKMETER,             "pm", "", SKIN_REFRESH_PEAK_METER),
      TAG(SKIN_TOKEN_PEAKMETER_LEFT,        "pL", BAR_PARAMS, SKIN_REFRESH_PEAK_METER),
@@ -129,11 +132,34 @@
  #ifndef __PCTOOL__
  #include "core_alloc.h"
  #endif
-@@ -653,6 +656,31 @@
+@@ -653,6 +656,54 @@
      return 0;
  }
  
 +#ifdef HAVE_SPECTRUM
++static int parse_visualization(struct skin_element *element,
++                          struct wps_token *token, struct wps_data *data)
++{
++    /* A single active animation pool; reject multiple tags instead of thrashing
++     * shared history. Multiple legacy spectrum widgets remain supported. */
++    struct spectrum_widget *scan=SKINOFFSETTOPTR(skin_buffer,data->spectrum_widgets);
++    while (scan) {
++        if (scan->animated) return -1;
++        scan=SKINOFFSETTOPTR(skin_buffer,scan->next);
++    }
++    struct spectrum_widget *w=skin_buffer_alloc(sizeof(*w));
++    if (!w || element->params_count!=8 || !visualization_widget_configure(w,
++        get_param(element,0)->data.number, get_param(element,1)->data.number,
++        get_param(element,2)->data.number, get_param(element,3)->data.number,
++        get_param_text(element,4),get_param_text(element,5),
++        get_param_text(element,6),get_param_text(element,7),curr_vp->vp.width,curr_vp->vp.height))
++        return -1;
++    w->viewport=PTRTOSKINOFFSET(skin_buffer,curr_vp);
++    w->next=data->spectrum_widgets;
++    data->spectrum_widgets=PTRTOSKINOFFSET(skin_buffer,w);
++    token->value.data=PTRTOSKINOFFSET(skin_buffer,w);
++    return 0;
++}
 +static int parse_spectrum(struct skin_element *element,
 +                          struct wps_token *token, struct wps_data *data)
 +{
@@ -161,7 +187,7 @@
  static int parse_drawrectangle( struct skin_element *element,
                                  struct wps_token *token,
                                  struct wps_data *wps_data)
-@@ -1987,6 +2009,10 @@
+@@ -1987,6 +2038,10 @@
  #endif
  
      wps_data->peak_meter_enabled = false;
@@ -172,10 +198,17 @@
      wps_data->wps_sb_tag = false;
      wps_data->show_sb_on_wps = false;
      wps_data->wps_loaded = false;
-@@ -2439,6 +2465,13 @@
+@@ -2439,6 +2494,20 @@
  #endif
                      break;
  #if (LCD_DEPTH > 1) || (defined(HAVE_REMOTE_LCD) && (LCD_REMOTE_DEPTH > 1))
++                case SKIN_TOKEN_VISUALIZATION:
++#ifdef HAVE_SPECTRUM
++                    function = parse_visualization;
++                    break;
++#else
++                    return CALLBACK_ERROR;
++#endif
 +                case SKIN_TOKEN_SPECTRUM:
 +#ifdef HAVE_SPECTRUM
 +                    function = parse_spectrum;
@@ -198,11 +231,12 @@
  #include "core_alloc.h"
  #include "kernel.h"
  #include "appevents.h"
-@@ -186,6 +189,21 @@
+@@ -186,6 +189,22 @@
          case SKIN_TOKEN_UIVIEWPORT_ENABLE:
              sb_set_info_vp(gwps->display->screen_type, token->value.data);
              break;
 +#ifdef HAVE_SPECTRUM
++        case SKIN_TOKEN_VISUALIZATION:
 +        case SKIN_TOKEN_SPECTRUM:
 +            if (!(skin_vp->hidden_flags & VP_NEVER_VISIBLE)) {
 +                struct spectrum_widget *w = SKINOFFSETTOPTR(skin_buffer, token->value.data);
@@ -220,12 +254,12 @@
          case SKIN_TOKEN_PEAKMETER:
              data->peak_meter_enabled = true;
              if (do_refresh)
-@@ -397,6 +415,18 @@
+@@ -397,6 +416,18 @@
                                                       SKIN_FIND_IMAGE, data);
                  clear_image_pos(gwps, img);
              }
 +#ifdef HAVE_SPECTRUM
-+            else if (token->type == SKIN_TOKEN_SPECTRUM)
++            else if (token->type == SKIN_TOKEN_SPECTRUM || token->type == SKIN_TOKEN_VISUALIZATION)
 +            {
 +                struct spectrum_widget *w = SKINOFFSETTOPTR(skin_buffer, token->value.data);
 +                if (w) {
@@ -239,7 +273,7 @@
              else if (token->type == SKIN_TOKEN_PEAKMETER)
              {
                  data->peak_meter_enabled = false;
-@@ -837,9 +867,40 @@
+@@ -837,9 +868,40 @@
      wps_display_images(gwps, &skin_viewport->vp);
  }
  
@@ -280,7 +314,7 @@
      struct wps_data *data = gwps->data;
      struct screen *display = gwps->display;
  
-@@ -862,6 +923,14 @@
+@@ -862,6 +924,14 @@
          }
      }
  
@@ -454,7 +488,7 @@
   */
 +#ifdef HAVE_SPECTRUM
 +/* This custom build changes settings/WPS layouts. Reject stock plugins. */
-+#define PLUGIN_API_VERSION 275
++#define PLUGIN_API_VERSION 276
 +#else
  #define PLUGIN_API_VERSION 273
 +#endif
@@ -463,7 +497,7 @@
  
 --- a/apps/settings.h
 +++ b/apps/settings.h
-@@ -363,6 +363,12 @@
+@@ -363,6 +363,13 @@
  
  struct user_settings
  {
@@ -472,17 +506,23 @@
 +    int spectrum_motion;
 +    bool spectrum_auto_gain;
 +    bool spectrum_guides;
++    int visualization_effect;
 +#endif
      /* audio settings */
      int balance;    /* stereo balance: -100 - +100 -100=left  0=bal +100=right  */
      int bass;       /* bass boost/cut in decibels                               */
 --- a/apps/settings_list.c
 +++ b/apps/settings_list.c
-@@ -1122,6 +1122,17 @@
+@@ -1122,6 +1122,22 @@
      CHOICE_SETTING(0, timeformat, LANG_TIMEFORMAT, 0,
          "time format", "24hour,12hour", NULL, 2,
          ID2P(LANG_24_HOUR_CLOCK), ID2P(LANG_12_HOUR_CLOCK)),
 +#ifdef HAVE_SPECTRUM
++    CHOICE_SETTING(0, visualization_effect, LANG_VISUALIZATION_EFFECT, 0,
++        "visualization effect", "theme,feedback,phosphor,ribbons,auto", NULL, 5,
++        ID2P(LANG_VISUALIZATION_THEME), ID2P(LANG_VISUALIZATION_FEEDBACK),
++        ID2P(LANG_VISUALIZATION_PHOSPHOR), ID2P(LANG_VISUALIZATION_RIBBONS),
++        ID2P(LANG_VISUALIZATION_AUTO)),
 +    OFFON_SETTING(0, spectrum_enabled, LANG_SPECTRUM, false, "spectrum enabled", NULL),
 +    CHOICE_SETTING(0, spectrum_motion, LANG_SPECTRUM_MOTION, 0,
 +        "spectrum motion", "fast3,smooth,punchy,classic", NULL, 4,
@@ -498,11 +538,12 @@
      INT_SETTING(F_TIME_SETTING, poweroff, LANG_POWEROFF_IDLE, 10,
 --- a/apps/menus/display_menu.c
 +++ b/apps/menus/display_menu.c
-@@ -610,6 +610,12 @@
+@@ -610,6 +610,13 @@
  MENUITEM_SETTING(codepage_setting, &global_settings.default_codepage, codepage_callback);
  
  
 +#ifdef HAVE_SPECTRUM
++MENUITEM_SETTING(visualization_setting, &global_settings.visualization_effect, NULL);
 +MENUITEM_SETTING(spectrum_setting, &global_settings.spectrum_enabled, NULL);
 +MENUITEM_SETTING(spectrum_motion_setting, &global_settings.spectrum_motion, NULL);
 +MENUITEM_SETTING(spectrum_gain_setting, &global_settings.spectrum_auto_gain, NULL);
@@ -511,12 +552,13 @@
  MAKE_MENU(display_menu, ID2P(LANG_DISPLAY),
              NULL, Icon_Display_menu,
              &lcd_settings,
-@@ -618,6 +621,12 @@
+@@ -618,6 +625,13 @@
  #endif
              &scroll_settings_menu,
              &peak_meter_menu,
 +#ifdef HAVE_SPECTRUM
 +            &spectrum_setting,
++            &visualization_setting,
 +            &spectrum_motion_setting,
 +            &spectrum_gain_setting,
 +            &spectrum_guides_setting,
@@ -526,7 +568,7 @@
              &touchscreen_menu,
 --- a/apps/lang/english.lang
 +++ b/apps/lang/english.lang
-@@ -17065,3 +17065,115 @@
+@@ -17065,3 +17065,205 @@
      *: "Playlist finished. Play again?"
    </voice>
  </phrase>
@@ -640,6 +682,96 @@
 +  </dest>
 +  <voice>
 +    *: "Spectrum Lane Guides"
++  </voice>
++</phrase>
++
++<phrase>
++  id: LANG_VISUALIZATION_EFFECT
++  desc: Native music animation selection
++  user: core
++  <source>
++    *: "Visualization Effect"
++  </source>
++  <dest>
++    *: "Visualization Effect"
++  </dest>
++  <voice>
++    *: "Visualization Effect"
++  </voice>
++</phrase>
++
++<phrase>
++  id: LANG_VISUALIZATION_THEME
++  desc: Native music animation selection
++  user: core
++  <source>
++    *: "Theme Default"
++  </source>
++  <dest>
++    *: "Theme Default"
++  </dest>
++  <voice>
++    *: "Theme Default"
++  </voice>
++</phrase>
++
++<phrase>
++  id: LANG_VISUALIZATION_FEEDBACK
++  desc: Native music animation selection
++  user: core
++  <source>
++    *: "Feedback Tunnel"
++  </source>
++  <dest>
++    *: "Feedback Tunnel"
++  </dest>
++  <voice>
++    *: "Feedback Tunnel"
++  </voice>
++</phrase>
++
++<phrase>
++  id: LANG_VISUALIZATION_PHOSPHOR
++  desc: Native music animation selection
++  user: core
++  <source>
++    *: "Phosphor Orbit"
++  </source>
++  <dest>
++    *: "Phosphor Orbit"
++  </dest>
++  <voice>
++    *: "Phosphor Orbit"
++  </voice>
++</phrase>
++
++<phrase>
++  id: LANG_VISUALIZATION_RIBBONS
++  desc: Native music animation selection
++  user: core
++  <source>
++    *: "Flowing Ribbons"
++  </source>
++  <dest>
++    *: "Flowing Ribbons"
++  </dest>
++  <voice>
++    *: "Flowing Ribbons"
++  </voice>
++</phrase>
++
++<phrase>
++  id: LANG_VISUALIZATION_AUTO
++  desc: Native music animation selection
++  user: core
++  <source>
++    *: "Auto Cycle"
++  </source>
++  <dest>
++    *: "Auto Cycle"
++  </dest>
++  <voice>
++    *: "Auto Cycle"
 +  </voice>
 +</phrase>
 --- a/apps/debug_menu.c

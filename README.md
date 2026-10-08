@@ -4,9 +4,11 @@
 
 Experimental native Now Playing spectrum for **Rockbox 4.0 on `ipod6g`**, developed for the iPod Classic 120GB commonly called the 6.5 generation. This is a patch/build project, not a full upstream fork.
 
-First firmware version: **1.0.0**, built as **`4.0-spectrum-1.0.0-e094c599fa`**. The version in [`VERSION`](VERSION) identifies our firmware separately from Rockbox 4.0 and the pinned upstream revision. It includes native spectrum analysis, motion/visual gain, theme-owned styling and independently packaged themes. Host validation does not establish hardware acceptance; a built package is not proof of device installation.
+Current source: **1.1.0 local preview candidate**, built as **`4.0-spectrum-1.1.0-e094c599fa`**. Published firmware remains **1.0.0**. See [animated visualizers](docs/animated-visualizers.md) for the preview review gate. The version in [`VERSION`](VERSION) identifies our firmware separately from Rockbox 4.0 and the pinned upstream revision. It includes native spectrum analysis, motion/visual gain, theme-owned styling and independently packaged themes. Host validation does not establish hardware acceptance; a built package is not proof of device installation.
 
 ## Features
+
+- Native feedback tunnels, phosphor orbits and flowing ribbons via `%pV`; manual/theme effect selection and optional auto cycling. Animation targets 25 fps; physical performance remains unverified.
 
 - True stereo-power FFT spectrum inside Now Playing using `%pF(x,y,width,height,bands,mode,palette)`.
 - 8/16/32 displayed bands, bars/lines, mono/classic palettes, theme-configurable guides and colors.
@@ -45,7 +47,7 @@ Use a new work/report name for each run. Build outputs remain in the work volume
 
 The patch is pinned to [Rockbox v4.0-final](https://github.com/Rockbox/rockbox/tree/e094c599fa60236527f9e272e0b8309d7696e399). Changed upstream files and source archives are fingerprinted before patching.
 
-Custom plugin API **275** and codec API **50** require matching firmware, plugins and codecs as one package. Stock Rockbox 4.0 cannot parse `%pF`; do not mix its executable plugins with this firmware. The original Classic/CrazyBit packs depend on separately installed CrazyBitMono assets/fonts. The new [Winamp, Studio and Adwaita collection](docs/theme-collection.md) supplies complete packs with two layouts each; firmware itself has no theme dependency. Custom themes and presets are never appended to the firmware ZIP. Build them independently with `tools/theme-pack.py`; see [theme packaging and styling](docs/themes.md).
+Custom plugin API **276** (1.0.0 uses 275) and codec API **50** require matching firmware, plugins and codecs as one package. Stock Rockbox 4.0 cannot parse `%pF`; do not mix its executable plugins with this firmware. The original Classic/CrazyBit packs depend on separately installed CrazyBitMono assets/fonts. The new [Winamp, Studio and Adwaita collection](docs/theme-collection.md) supplies complete packs with two layouts each; firmware itself has no theme dependency. Custom themes and presets are never appended to the firmware ZIP. Build them independently with `tools/theme-pack.py`; see [theme packaging and styling](docs/themes.md).
 
 GitHub CI runs portable checks and native ARM64 firmware/simulator/checkwps builds, preserving reports only. Verified packages are published separately as [GitHub Releases](docs/releases.md). Firmware and theme/preset packs use independent tags; experimental builds are marked pre-release.
 

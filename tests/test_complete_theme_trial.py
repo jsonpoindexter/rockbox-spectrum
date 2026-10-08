@@ -107,7 +107,7 @@ class CompleteThemeTests(unittest.TestCase):
 
     def test_audio_navigation_and_unsafe_paths_refused(self):
         for index, setting in enumerate(('volume: -1', 'eq enabled: off', 'lang: english',
-                                         'root menu order: database', 'spectrum motion: punchy')):
+                                         'root menu order: database', 'spectrum motion: punchy', 'visualization effect: auto')):
             pack, assets = self.pack('Unsafe' + str(index), setting)
             with self.assertRaisesRegex(ValueError, 'nonvisual'):
                 self.build(pack, assets)
@@ -115,6 +115,30 @@ class CompleteThemeTests(unittest.TestCase):
                      '.rockbox/wps/Example/evil.rock', '.rockbox/fonts/Other-14.fnt'):
             with self.assertRaises(ValueError):
                 theme.payload_path(name, {'schema': 3, 'id': 'Example'})
+
+    def test_animation_requires_new_firmware_and_declared_capability(self):
+        pack, assets = self.pack('Animated')
+        meta_path = pack / 'pack.json'
+        meta = json.loads(meta_path.read_text())
+        skin = pack / '.rockbox/wps/Animated-Detail.wps'
+        skin.write_text(skin.read_text() + '%pV(0,0,320,240,feedback,000000,00ff88,ff55bb)\n')
+        with self.assertRaisesRegex(ValueError, 'skin API 3'):
+            self.build(pack, assets)
+        meta.update(required_skin_api=3)
+        meta_path.write_text(json.dumps(meta))
+        with self.assertRaisesRegex(ValueError, '1.1.0'):
+            self.build(pack, assets)
+        meta['minimum_firmware_version'] = '1.1.0'
+        meta_path.write_text(json.dumps(meta))
+        package = self.build(pack, assets)
+        before = self.snapshot()
+        with self.assertRaises(ValueError):
+            theme.install(self.args(package, 'too-old'))
+        self.assertEqual(before, self.snapshot())
+        (self.volume / '.rockbox/rockbox-info.txt').write_text(
+            'Target: ipod6g\nVersion: 4.0-spectrum-1.1.0-e094c599fa\n')
+        theme.install(self.args(package, 'supported'))
+        self.assertTrue((self.volume / '.rockbox/wps/Animated-Detail.wps').is_file())
 
     def test_archive_limits_and_corrupt_hash(self):
         package = self.build(*self.pack())

@@ -119,21 +119,44 @@ def capture_theme(simulator, base, package, variant, output, tone, scenario):
             snap('playing-later')
             return {'theme': label, 'scenario': scenario, 'result': 'captured',
                     'physical_device_tests': 'not performed'}
-        frames = []
-        for i in range(24):
-            frames.append(snap('animation-%02d' % i))
-            time.sleep(.06)
-        run('convert', '-delay', '10', *[str(f) for f in frames], '-loop', '0', str(folder / 'playing.gif'))
+        if shutil.which('ffmpeg'):
+            geometry = dict(line.split('=', 1) for line in
+                            run('xdotool', 'getwindowgeometry', '--shell', window).decode().splitlines())
+            origin = os.environ['DISPLAY'] + '+' + geometry['X'] + ',' + geometry['Y']
+            video = folder / 'capture.mkv'
+            subprocess.run(['ffmpeg', '-nostdin', '-hide_banner', '-loglevel', 'error',
+                '-f', 'x11grab', '-draw_mouse', '0', '-video_size', '320x240',
+                '-framerate', '25', '-i', origin, '-t', '6', '-an', '-c:v', 'ffv1', str(video)], check=True)
+            subprocess.run(['ffmpeg', '-nostdin', '-hide_banner', '-loglevel', 'error',
+                '-i', str(video), '-an', '-c:v', 'libx264', '-preset', 'fast', '-crf', '16',
+                '-pix_fmt', 'yuv420p', '-movflags', '+faststart', str(folder / 'playing.mp4')], check=True)
+            subprocess.run(['ffmpeg', '-nostdin', '-hide_banner', '-loglevel', 'error',
+                '-i', str(video), '-vf', 'fps=4', '-frames:v', '24', '-start_number', '0',
+                str(folder / 'animation-%02d.png')], check=True)
+            subprocess.run(['ffmpeg', '-nostdin', '-hide_banner', '-loglevel', 'error',
+                '-i', str(video), '-filter_complex',
+                '[0:v]fps=12,split[a][b];[a]palettegen[p];[b][p]paletteuse',
+                '-loop', '0', str(folder / 'playing.gif')], check=True)
+        else:
+            frames = []
+            for i in range(24):
+                frames.append(snap('animation-%02d' % i))
+                time.sleep(.06)
+            run('convert', '-delay', '10', *[str(f) for f in frames], '-loop', '0', str(folder / 'playing.gif'))
         key('space')
         time.sleep(.1)
         snap('pause-tail')
         time.sleep(1)
         snap('paused')
+        time.sleep(.6)
+        snap('paused-later')
         key('space')
         time.sleep(1)
         key('h')
         time.sleep(.7)
         snap('hold')
+        time.sleep(.6)
+        snap('hold-later')
         key('h')
         time.sleep(.5)
         key('Escape')
@@ -174,7 +197,7 @@ def main():
     for ident in ([a.theme] if a.theme else ['WinampSpectrum', 'StudioSpectrum', 'AdwaitaSpectrum']):
         for variant in ('Detail', 'Visualizer'):
             results.append(capture_theme(a.simulator.resolve(), a.base.resolve(),
-                           a.packages.resolve() / (ident + '-1.0.zip'), variant, a.output, tone, a.scenario))
+                           a.packages.resolve() / (ident + '-' + json.loads((Path(__file__).resolve().parents[1] / 'theme-packs' / ident / 'pack.json').read_text())['version'] + '.zip'), variant, a.output, tone, a.scenario))
     (a.output / 'captures.json').write_text(json.dumps(results, indent=2) + '\n')
 
 

@@ -16,7 +16,7 @@ def main():
     output = args.output.resolve()
     output.mkdir(parents=True, exist_ok=True)
     commands = [('core', [sys.executable, str(ROOT / 'tools/run-tests.py'), '--output', str(output / 'core.json')])]
-    for name in ('service_render', 'cadence', 'pause_tail', 'wps_exit', 'simulator_captures'):
+    for name in ('visualizer', 'visualizer_service', 'service_render', 'cadence', 'pause_tail', 'wps_exit', 'simulator_captures', 'animation_captures'):
         commands.append((name, [sys.executable, str(ROOT / ('tests/test_' + name + '.py'))]))
     commands.append(('fixture_tests', [sys.executable, '-m', 'unittest', 'discover', '-s', str(ROOT / 'tests'), '-p', 'test*trial.py']))
     commands.append(('build_support', [sys.executable, str(ROOT / 'tests/test_build_support.py')]))

@@ -70,8 +70,8 @@ class InputTests(unittest.TestCase):
 
 class VersionTests(unittest.TestCase):
     def test_initial_release_and_legacy_apis(self):
-        self.assertEqual(version.current_version(), '4.0-spectrum-1.0.0-e094c599fa')
-        for label, api, skin in [('1.0.0', 275, 2), ('1.1.0', 275, 2),
+        self.assertEqual(version.current_version(), '4.0-spectrum-1.1.0-e094c599fa')
+        for label, api, skin in [('1.0.0', 275, 2), ('1.1.0', 276, 3),
                                  ('v1', 274, 1), ('v1-fast3', 274, 1),
                                  ('v1-fast4', 275, 1), ('v1-fast9', 275, 1), ('v1-fast10', 275, 2)]:
             info = 'Target: ipod6g\nVersion: 4.0-spectrum-' + label + '-e094c599fa\n'
@@ -99,7 +99,10 @@ class VersionTests(unittest.TestCase):
             self.assertEqual(version.theme_compatible(info, styled), styles)
             self.assertEqual(version.theme_compatible(info, presets), controls)
         info = 'Target: ipod6g\nVersion: ' + version.current_version() + '\n'
-        self.assertFalse(version.theme_compatible(info, dict(styled, minimum_firmware_version='1.1.0')))
+        self.assertTrue(version.theme_compatible(info, dict(styled, minimum_firmware_version='1.1.0', required_skin_api=3)))
+        self.assertFalse(version.theme_compatible(info, dict(styled, minimum_firmware_version='1.2.0')))
+        old = info.replace('1.1.0', '1.0.0')
+        self.assertFalse(version.theme_compatible(old, dict(styled, minimum_firmware_version='1.1.0', required_skin_api=3)))
         self.assertTrue(version.theme_compatible(info, {'schema': 1, 'minimum_firmware_fast': 10}))
 
     def test_invalid_semantic_versions(self):

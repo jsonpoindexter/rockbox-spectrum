@@ -1,19 +1,18 @@
-# WinampSpectrum 1.0. Original/adapted skin text, CC-BY-SA 3.0.
-# See /.rockbox/themes/WinampSpectrum/licenses/ATTRIBUTION.txt
-# AI-assisted with OpenAI Codex, 2026-10-08.
+# WinampSpectrum 2.0. CC-BY-SA 3.0; component notices in theme licenses.
 %Fl(2,WinampSpectrum-07.fnt)
 %Fl(3,WinampSpectrum-14.fnt)
 %wd
 %X(d)
 %V(0,0,320,240,0)
 %VI(list)
-%dr(0,0,320,28,10130e)
+%dr(4,4,312,24,080d18)
+%dr(4,4,312,1,747989)
+%V(12,12,296,9,0)
 %Vf(80ef56)
-%V(8,9,304,8,0)
-%alWINAMP%ar%?bc<CHG |>%bl%%
-%V(8,29,304,24,2)
+%alWINAMP / LIBRARY%ar%bl%%
+%V(12,35,296,17,2)
 %s%Lt
-%Vi(list,8,57,304,160,2)
-%V(8,225,304,12,0)
-%Vf(939c92)
-%al%?mp<READY|PLAY|PAUSE|FFWD|REW|REC|REC PAUSE|FM|FM MUTE>%arVOL %pvdB
+%Vi(list,12,62,296,153,2)
+%V(12,227,296,9,0)
+%Vf(939cae)
+%al%?mp<STOP|PLAY|PAUSE|FFWD|REW|REC|REC PAUSE|FM|FM MUTE>%arVOL %pvdB

@@ -28,3 +28,8 @@ Single-purpose `.cfg` files in `theme-packs/SpectrumPresets/.rockbox/` provide r
 Timing counters are available at **Settings → System → Debug (Keep Out!) → Spectrum timing**. Center exports `/.rockbox/spectrum-timing.txt` on demand. Capture-to-submission age is not measured audible/display latency.
 
 `benchmarks.csv` is an inherited unfilled measurement template with historical proposal labels; it does not report current frame rates, latency, runtime or hardware results.
+
+## Native animation extension
+
+The 1.1.0 preview adds a separate pV renderer and bounded waveform/energy feature
+frame without replacing pF. See [engine, controls and compatibility](animated-visualizers.md).

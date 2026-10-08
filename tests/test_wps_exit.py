@@ -57,6 +57,6 @@ with tempfile.TemporaryDirectory(prefix='spectrum-exit-') as directory:
  tmp=Path(directory)
  for name in ('config','screen_access','kernel','thread','pcm','pcm_mixer','audio','settings','backlight','lcd','pcmbuf','system'):(tmp/(name+'.h')).write_text(STUB)
  c=tmp/'exit.c';exe=tmp/'exit';c.write_text(code.replace('SERVICE_SOURCE',str(CORE/'service.c')).replace('EXIT_BLOCK',block))
- subprocess.run(['cc','-std=c99','-O1','-Wall','-Wextra','-Werror','-fsanitize=address,undefined','-I',str(tmp),'-I',str(CORE),str(c),str(CORE/'capture.c'),str(CORE/'analyzer.c'),'-o',str(exe)],check=True)
+ subprocess.run(['cc','-std=c99','-O1','-Wall','-Wextra','-Werror','-fsanitize=address,undefined','-fno-sanitize-recover=all','-I',str(tmp),'-I',str(CORE),str(c),str(CORE/'capture.c'),str(CORE/'analyzer.c'),str(CORE/'visualizer.c'),'-o',str(exe)],check=True)
  result=subprocess.check_output([str(exe)],text=True)
  print(json.dumps({'result':'passed','actual_patched_exit_gate':True,'checks':result.strip(),'sanitizers':['address','undefined']},indent=2))

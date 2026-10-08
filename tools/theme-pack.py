@@ -61,8 +61,10 @@ def metadata_valid(meta):
         if type(meta.get('minimum_firmware_fast')) is not int or not 4 <= meta['minimum_firmware_fast'] <= 10:
             raise ValueError('Invalid legacy minimum firmware')
     else:
-        if semver(meta.get('minimum_firmware_version')) < (1, 0, 0) or type(meta.get('required_skin_api')) is not int or meta['required_skin_api'] not in (1, 2):
+        if semver(meta.get('minimum_firmware_version')) < (1, 0, 0) or type(meta.get('required_skin_api')) is not int or meta['required_skin_api'] not in (1, 2, 3):
             raise ValueError('Invalid minimum firmware/skin API')
+        if meta['required_skin_api'] == 3 and semver(meta['minimum_firmware_version']) < (1, 1, 0):
+            raise ValueError('Skin API 3 requires firmware 1.1.0')
 
 
 def dependencies(files):
@@ -92,6 +94,9 @@ def complete_valid(meta, files):
         return
     if dependencies(files):
         raise ValueError('Complete theme has missing assets: ' + ', '.join(dependencies(files)))
+    if any('%pV(' in line for name, data in files.items() if name.endswith(('.wps', '.sbs'))
+           for line in data.decode('utf8').splitlines() if not line.lstrip().startswith('#')) and meta['required_skin_api'] < 3:
+        raise ValueError('Animated theme requires skin API 3')
     ident = meta['id']
     required = {'.rockbox/wps/' + ident + '.sbs'}
     for variant in ('Detail', 'Visualizer'):

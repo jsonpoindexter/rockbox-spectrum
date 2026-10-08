@@ -1,7 +1,6 @@
-# WinampSpectrum 1.0. Original/adapted skin text, CC-BY-SA 3.0.
-# See /.rockbox/themes/WinampSpectrum/licenses/ATTRIBUTION.txt
+# WinampSpectrum 2.0. Original skin, CC-BY-SA 3.0.
 # AI-assisted with OpenAI Codex, 2026-10-08.
-# Visualizer layout.
+# Component attribution: /.rockbox/themes/WinampSpectrum/licenses/ATTRIBUTION.txt
 %wd
 %X(d)
 %Fl(2,WinampSpectrum-07.fnt)
@@ -10,88 +9,62 @@
 %?mh<%Vd(lock)|%Vd(play)>
 
 %Vl(play,0,0,320,240,-)
+%Vf(deded2)
 %dr(0,0,320,240,20212b)
 
-%Vl(play,4,4,312,19,0)
+%Vl(play,4,4,312,172,-)
 %Vf(deded2)
-%dr(0,0,312,1,7e8292)%dr(0,1,1,17,7e8292)%dr(311,1,1,18,08090d)
-%Vl(play,8,8,304,8,0)
-%Vf(939c92)
-%acWINAMP / SPECTRUM
+%Vb(080d18)
+%pV(0,0,312,172,feedback,080d18,42aaff,f75fae)
 
-%Vl(play,8,25,304,31,-)
-%dr(0,0,304,31,10130e)
+%Vl(play,4,176,312,1,-)
+%Vf(deded2)
+%dr(0,0,312,1,747989)
 
-%Vl(play,12,25,296,28,3)
+%Vl(play,10,182,300,17,2)
+%Vf(80ef56)
 %s%?it<%it|%fn>
 
-%Vl(play,12,53,296,8,0)
-%Vf(939c92)
+%Vl(play,10,201,196,17,2)
+%Vf(deded2)
 %s%?ia<%ia|Unknown artist>
 
-%Vl(play,12,62,296,130,-)
+%Vl(play,214,202,96,9,0)
 %Vf(80ef56)
-%Vb(10130e)
-%pF(0,0,296,130,32,bars,classic,off,243326,6,baseline,auto,deded2,1)
+%ar%pc / %pt
 
-%Vl(play,21,195,42,9,0)
-%Vf(939c92)
-%ac100
-
-%Vl(play,68,195,42,9,0)
-%Vf(939c92)
-%ac250
-
-%Vl(play,140,195,42,9,0)
-%Vf(939c92)
-%ac1k
-
-%Vl(play,211,195,42,9,0)
-%Vf(939c92)
-%ac4k
-
-%Vl(play,258,195,42,9,0)
-%Vf(939c92)
-%ac10kHz
-
-%Vl(play,12,208,296,9,0)
-%Vf(939c92)
-%al%?mp<STOP|PLAY|PAUSE|FFWD|REW|REC|REC PAUSE|FM|FM MUTE>%acVOL %pvdB%ar%?bc<CHG |>%bl%%
-
-%Vl(play,112,219,96,2,-)
+%Vl(play,10,222,300,3,-)
 %Vf(80ef56)
-%pv(0,0,96,2)
+%Vb(20212b)
+%pb(0,0,300,3)
 
-%Vl(play,12,227,54,9,0)
-%Vf(deded2)
-%al%pc
-
-%Vl(play,254,227,54,9,0)
-%Vf(deded2)
-%ar%pt
-
-%Vl(play,70,229,178,4,-)
-%Vf(80ef56)
-%pb(0,0,178,4)
+%Vl(play,10,230,300,9,0)
+%Vf(939cae)
+%al%?mp<STOP|PLAY|PAUSE|FFWD|REW|REC|REC PAUSE|FM|FM MUTE>%acVOL %pv%ar%?bc<CHG |>%bl%%
 
 %Vl(lock,0,0,320,240,-)
 %dr(0,0,320,240,20212b)
 
-%Vl(lock,16,14,288,12,0)
-%Vf(939c92)
-%alHOLD%ar%?bc<CHARGING |>%bl%%
+%Vl(lock,10,42,300,2,-)
+%Vf(deded2)
+%dr(0,0,300,2,80ef56)
 
-%Vl(lock,16,51,288,30,3)
+%Vl(lock,14,16,292,9,0)
+%Vf(939cae)
+%alWINAMP  /  HOLD%ar%bl%%
+
+%Vl(lock,14,56,292,28,3)
 %Vf(80ef56)
-%ac%?cf<%cH:%cM|%cl:%cM %cP>
+%?cf<%cH:%cM|%cl:%cM %cP>
 
-%Vl(lock,16,108,288,30,3)
-%s%ac%?it<%it|%fn>
+%Vl(lock,14,126,292,28,3)
+%Vf(deded2)
+%s%?it<%it|%fn>
 
-%Vl(lock,16,145,288,25,2)
-%Vf(939c92)
-%s%ac%?ia<%ia|Unknown artist>
+%Vl(lock,14,160,292,17,2)
+%Vf(939cae)
+%s%?ia<%ia|Unknown artist>
 
-%Vl(lock,16,201,288,14,0)
-%Vf(939c92)
-%al%pc / %pt%ar%?mp<STOP|PLAY|PAUSE|FFWD|REW|REC|REC PAUSE|FM|FM MUTE>
+%Vl(lock,14,214,292,9,0)
+%Vf(939cae)
+%al%?mp<STOP|PLAY|PAUSE|FFWD|REW|REC|REC PAUSE|FM|FM MUTE>%ar%pc / %pt

@@ -39,7 +39,7 @@ static void mono(const unsigned char *src,int sx,int sy,int stride,int x,int y,i
  }
 }
 int main(void) {
- struct screen screen={viewport,get_color,color,drawmode,rectangle,line,diagonal,mono};
+ struct screen screen={viewport,get_color,color,drawmode,rectangle,line,diagonal,mono,NULL};
  struct viewport vp;
  unsigned cases=0, intermediate=0;
  global_settings.spectrum_enabled=true; global_settings.spectrum_guides=true;
@@ -178,7 +178,7 @@ for label,stub,white,tint in [('RGB888',STUB,'0xbfbfbf','0x306090'),
   for name in ('config','screen_access','kernel','thread','pcm','pcm_mixer','audio','settings','backlight','lcd','pcmbuf','system'):
    (tmp/(name+'.h')).write_text(stub)
   c=tmp/'tail.c';c.write_text(HARNESS.replace('SERVICE_SOURCE',str(CORE/'service.c')));exe=tmp/'tail'
-  subprocess.run(['cc','-std=c99','-O1','-Wall','-Wextra','-Werror','-fsanitize=address,undefined','-I',str(tmp),'-I',str(CORE),str(c),str(CORE/'capture.c'),str(CORE/'analyzer.c'),'-o',str(exe)],check=True)
+  subprocess.run(['cc','-std=c99','-O1','-Wall','-Wextra','-Werror','-fsanitize=address,undefined','-fno-sanitize-recover=all','-I',str(tmp),'-I',str(CORE),str(c),str(CORE/'capture.c'),str(CORE/'analyzer.c'),str(CORE/'visualizer.c'),'-o',str(exe)],check=True)
   run=subprocess.run([str(exe)],capture_output=True,text=True)
   if run.returncode:raise RuntimeError(run.stderr)
   results.append({'pixel_format':label,'checks':run.stderr.strip()})

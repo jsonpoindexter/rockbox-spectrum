@@ -1,19 +1,17 @@
-# StudioSpectrum 1.0. Original/adapted skin text, CC-BY-SA 3.0.
-# See /.rockbox/themes/StudioSpectrum/licenses/ATTRIBUTION.txt
-# AI-assisted with OpenAI Codex, 2026-10-08.
+# StudioSpectrum 2.0. CC-BY-SA 3.0; component notices in theme licenses.
 %Fl(2,StudioSpectrum-07.fnt)
 %Fl(3,StudioSpectrum-14.fnt)
 %wd
 %X(d)
 %V(0,0,320,240,0)
 %VI(list)
-%dr(0,0,320,28,11110f)
-%Vf(eeb65b)
-%V(8,9,304,8,0)
-%alSTUDIO%ar%?bc<CHG |>%bl%%
-%V(8,29,304,24,2)
+%dr(8,8,3,224,efb95c)
+%V(24,12,280,9,0)
+%Vf(efb95c)
+%alSTUDIO / BROWSER%ar%bl%%
+%V(24,33,280,28,3)
 %s%Lt
-%Vi(list,8,57,304,160,2)
-%V(8,225,304,12,0)
-%Vf(a19882)
-%al%?mp<READY|PLAY|PAUSE|FFWD|REW|REC|REC PAUSE|FM|FM MUTE>%arVOL %pvdB
+%Vi(list,24,76,280,136,2)
+%V(24,226,280,9,0)
+%Vf(999a7f)
+%al%?mp<STOP|PLAY|PAUSE|FFWD|REW|REC|REC PAUSE|FM|FM MUTE>%arVOL %pv

@@ -5,9 +5,9 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 CORE = ROOT / 'overlay/apps/gui/spectrum'
 class Analyzer(ctypes.Structure):
-    _fields_ = [('real', ctypes.c_int32 * 1024), ('imag', ctypes.c_int32 * 1024), ('power', ctypes.c_uint64 * 512), ('cached_rate', ctypes.c_uint32), ('lo', ctypes.c_uint16 * 32), ('hi', ctypes.c_uint16 * 32)]
+    _fields_ = [('real', ctypes.c_int32 * 1024), ('imag', ctypes.c_int32 * 1024), ('power', ctypes.c_uint64 * 512), ('cached_rate', ctypes.c_uint32), ('generation', ctypes.c_uint32), ('previous_energy', ctypes.c_int16 * 3), ('lo', ctypes.c_uint16 * 32), ('hi', ctypes.c_uint16 * 32)]
 class Frame(ctypes.Structure):
-    _fields_ = [('generation', ctypes.c_uint32), ('sequence', ctypes.c_uint32), ('sample_rate', ctypes.c_uint32), ('tick', ctypes.c_uint32), ('capture_us', ctypes.c_uint32), ('db', ctypes.c_int16 * 32)]
+    _fields_ = [('generation', ctypes.c_uint32), ('sequence', ctypes.c_uint32), ('sample_rate', ctypes.c_uint32), ('tick', ctypes.c_uint32), ('capture_us', ctypes.c_uint32), ('wave', (ctypes.c_int16 * 2) * 128), ('energy', ctypes.c_int16 * 3), ('onset', ctypes.c_int16), ('db', ctypes.c_int16 * 32)]
 def fft(data):
     values = list(data); n=len(values);j=0
     for i in range(1,n):
@@ -28,7 +28,7 @@ def main():
     parser=argparse.ArgumentParser(description=__doc__);parser.add_argument('--output',type=Path);args=parser.parse_args()
     with tempfile.TemporaryDirectory(prefix='rockbox-spectrum-tests-') as tmp:
         tmp=Path(tmp); exe=tmp/'test-core';lib=tmp/'analysis.so'
-        subprocess.run(['cc','-std=c99','-O1','-Wall','-Wextra','-Werror','-fsanitize=address,undefined','-g','-I',str(CORE),str(ROOT/'tests/test_core.c'),str(CORE/'analyzer.c'),str(CORE/'capture.c'),'-lm','-o',str(exe)],check=True)
+        subprocess.run(['cc','-std=c99','-O1','-Wall','-Wextra','-Werror','-fsanitize=address,undefined','-fno-sanitize-recover=all','-g','-I',str(CORE),str(ROOT/'tests/test_core.c'),str(CORE/'analyzer.c'),str(CORE/'capture.c'),'-lm','-o',str(exe)],check=True)
         core=subprocess.check_output([str(exe)],universal_newlines=True);print(core,end='')
         subprocess.run(['cc','-std=c99','-O2','-shared','-fPIC',str(CORE/'analyzer.c'),str(ROOT/'tests/analyzer_uncached.c'),'-I',str(CORE),'-o',str(lib)],check=True)
         api=ctypes.CDLL(str(lib));api.spectrum_analyze.argtypes=[ctypes.POINTER(Analyzer),ctypes.POINTER(ctypes.c_int16),ctypes.c_uint32,ctypes.POINTER(Frame)]

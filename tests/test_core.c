@@ -52,6 +52,18 @@ static void test_analysis(void)
         for(int i=0;i<32;i++) assert(frame.db[i]>=SPECTRUM_FLOOR && frame.db[i]<=0);
     }
 }
+static void test_visual_features(void)
+{
+    frame.generation=42;memset(pcm,0,sizeof(pcm));analyze(44100);
+    for(int i=0;i<3;i++)assert(frame.energy[i]==SPECTRUM_FLOOR);
+    for(int i=0;i<128;i++)for(int c=0;c<2;c++)assert(frame.wave[i][c]==0);
+    tone(20000,-1,8);analyze(44100);assert(frame.onset>0);
+    for(int i=0;i<128;i++)assert(abs(frame.wave[i][0]+frame.wave[i][1])<=1);
+    analyze(44100);assert(frame.onset==0);
+    frame.generation++;tone(30000,1,80);analyze(44100);assert(frame.onset==0);
+    for(int i=0;i<2048;i++)pcm[i]=30000;
+    analyze(44100);for(int i=0;i<128;i++)assert(frame.wave[i][0]==0&&frame.wave[i][1]==0);
+}
 static void test_capture(void)
 {
     struct spectrum_capture c;spectrum_capture_init(&c,5);
@@ -242,7 +254,7 @@ static void test_profiles_and_gain(void)
     spectrum_widget_gain(&w,true,true,-20*256,10,100);assert(w.visual_gain>0&&w.visual_gain<256);
 }
 int main(void) {
-    test_analysis();test_capture();test_rolling();test_widget();test_presentation();test_profiles_and_gain();test_fast3_regression();
+    test_analysis();test_visual_features();test_capture();test_rolling();test_widget();test_presentation();test_profiles_and_gain();test_fast3_regression();
     printf("PASS: numeric FFT, stereo phase, clipping, capture ownership/reset/drop/timing, widget bounds, presentation attack/release/hold/wrap\n");
     printf("RAM: analyzer=%zu capture=%zu widget=%zu frame=%zu bytes\n",sizeof(analyzer),sizeof(struct spectrum_capture),sizeof(struct spectrum_widget),sizeof(frame));
 }
