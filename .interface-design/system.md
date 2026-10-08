@@ -13,16 +13,21 @@ Signatures and composition:
 - Winamp: beveled compact deck, inset animation beside elapsed time, title ticker,
   LED green status and electric blue/magenta feedback. Pixel typography.
 - Studio: amber instrument panel with a left information rail and right phosphor
-  orbit, bottom track identification. Pixel typography and understated dividers.
+  orbit in Detail; Immersive puts a full-width track heading above a broad orbit
+  stage and a single transport row. Pixel typography and understated dividers.
 - Adwaita: centered album sleeve, large title/artist, pale surfaces, blue/violet
   ribbons and generous whitespace. Cantarell typography.
 
 Replace the shared metadata/spectrum/footer grid with these three compositions.
 Use actual font heights, not font filename sizes (Lana07 17px, Lana14 28px;
-Cantarell18 23px, Cantarell20Bold 21px). Use 4px spacing where it fits font metrics.
+Cantarell18 23px, Cantarell20Bold 21px, Cantarell24 28px).
+Menus and global UI fonts use 28px heights: Lana14 for Winamp/Studio and
+Cantarell24 for Adwaita. Smaller player/status fonts remain explicitly scoped.
+Use 4px spacing where it fits font metrics.
 Keep text/art regions disjoint from animated viewports. Details never scroll
 into animation. Immersive mode uses minimal track/time information, with a
-bottom transport deck, side instrument rail or airy caption region respectively.
+bottom transport deck, headline/stage/transport composition or airy caption
+region respectively.
 
 Hold screens and menus retain the same typography, color hierarchy and spatial
 identity. Theme cfgs own appearance only. No audio, effect, gain, navigation or

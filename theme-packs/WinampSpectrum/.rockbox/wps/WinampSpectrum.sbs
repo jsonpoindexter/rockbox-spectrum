@@ -12,7 +12,7 @@
 %alWINAMP / LIBRARY%ar%bl%%
 %V(12,35,296,17,2)
 %s%Lt
-%Vi(list,12,62,296,153,2)
+%Vi(list,12,62,296,156,3)
 %V(12,227,296,9,0)
 %Vf(939cae)
 %al%?mp<STOP|PLAY|PAUSE|FFWD|REW|REC|REC PAUSE|FM|FM MUTE>%arVOL %pvdB

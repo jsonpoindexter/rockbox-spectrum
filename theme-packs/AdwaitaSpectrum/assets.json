@@ -43,6 +43,17 @@
           "sha256": "8b358b2e426d58048013d761e0a7af0a561530cef7f4886dce6c463d71161ab0"
         }
       ]
+    },
+    {
+      "url": "https://raw.githubusercontent.com/D0-0K/adwaitapod/37688abcd7736a9e52bd690281f85a4e54fce9ed/Accessibility%20Pack/Fonts/Default/24-Cantarell-Regular/adwaitapod/.rockbox/fonts/24-Cantarell-Regular.fnt",
+      "sha256": "ec3203714f6fb488f3e02c6cef7d76a812fa87f410733bafd3bd97cbb502ffe3",
+      "format": "raw",
+      "members": [
+        {
+          "target": ".rockbox/fonts/AdwaitaSpectrum-24Regular.fnt",
+          "sha256": "ec3203714f6fb488f3e02c6cef7d76a812fa87f410733bafd3bd97cbb502ffe3"
+        }
+      ]
     }
   ]
 }

@@ -1,6 +1,8 @@
 # StudioSpectrum 2.0 — local preview
 
 Complete Detail and immersive Visualizer layouts with **Phosphor Orbit** as the signature.
+Immersive uses a large title above a broad orbit and one transport row below.
+Menus use the larger LanaPixel font; Detail and Hold keep their existing layout.
 Requires custom firmware **1.1.0 / skin API 3**. Not yet published or installed.
 
 [Composition, font metrics and preview workflow](../../docs/theme-collection.md).

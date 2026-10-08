@@ -11,7 +11,7 @@
 %alSTUDIO / BROWSER%ar%bl%%
 %V(24,33,280,28,3)
 %s%Lt
-%Vi(list,24,76,280,136,2)
+%Vi(list,24,68,280,144,3)
 %V(24,226,280,9,0)
 %Vf(999a7f)
 %al%?mp<STOP|PLAY|PAUSE|FFWD|REW|REC|REC PAUSE|FM|FM MUTE>%arVOL %pv

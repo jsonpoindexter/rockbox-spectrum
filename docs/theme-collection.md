@@ -6,7 +6,7 @@ local preview requiring firmware 1.1.0 / skin API 3, not a published release.
 | Pack | Detail | Immersive (`Visualizer`) |
 | --- | --- | --- |
 | WinampSpectrum | Inset feedback window beside LED time; title ticker and compact deck | Large feedback canvas above a narrow transport strip |
-| StudioSpectrum | Left data rail beside a tall amber phosphor instrument | Large orbit with time/status side rail and bottom track labels |
+| StudioSpectrum | Left data rail beside a tall amber phosphor instrument | Large track heading above a broad orbit; one transport row below |
 | AdwaitaSpectrum | Centered album sleeve, headline title/artist and quiet ribbon band | Wide flowing canvas above airy centered captions |
 
 Detail retains metadata, codec/bitrate, queue/modes, volume, battery/charging,
@@ -15,7 +15,13 @@ information. Hold and menus follow each pack's typography and spatial identity.
 See [design rules](../.interface-design/system.md) and [native animation API](animated-visualizers.md).
 
 Font viewports use actual RB12 heights: Lana07 17px, Lana14 28px, Cantarell18 23px,
-Cantarell20Bold 21px. Animation cannot paint over text or artwork. Missing album
+Cantarell20Bold 21px and Cantarell24 28px. Menus and the global UI font use
+28px-high fonts in all three packs, including settings/submenus: Lana14 for
+Winamp/Studio, and the pinned upstream accessibility Cantarell24 for Adwaita.
+Studio Immersive replaces the narrow side rail with a full-width title, artist,
+296×144 phosphor stage and a single time/state/volume row; battery and progress
+remain visible. Detail and Hold retain their existing compositions.
+Animation cannot paint over text or artwork. Missing album
 art uses an original geometric fallback; missing metadata falls back to filename
 and unknown artist/album. Existing font/art licenses and locked sources remain.
 

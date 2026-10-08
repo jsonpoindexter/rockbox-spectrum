@@ -12,59 +12,32 @@
 %Vf(e4d8b4)
 %dr(0,0,320,240,181915)
 
-%Vl(play,55,8,1,224,-)
-%Vf(e4d8b4)
-%dr(0,0,1,224,454537)
-
-%Vl(play,64,8,248,188,-)
-%Vf(e4d8b4)
-%Vb(090e0c)
-%pV(0,0,248,188,phosphor,090e0c,ffc66c,79d9a0)
-
-%Vl(play,8,12,44,9,0)
-%Vf(efb95c)
-STUDIO
-
-%Vl(play,8,37,44,9,0)
-%Vf(999a7f)
-TIME
-
-%Vl(play,8,53,44,17,2)
-%Vf(efb95c)
-%pc
-
-%Vl(play,8,82,44,9,0)
-%Vf(999a7f)
-OF %pt
-
-%Vl(play,8,109,44,9,0)
-%Vf(999a7f)
-VOL
-
-%Vl(play,8,123,44,17,2)
-%Vf(efb95c)
-%pv
-
-%Vl(play,8,155,44,9,0)
-%Vf(999a7f)
-%bl%%
-
-%Vl(play,8,178,44,9,0)
-%Vf(efb95c)
-%?mp<STOP|PLAY|PAUSE|FFWD|REW|REC|REC PAUSE|FM|FM MUTE>
-
-%Vl(play,8,202,40,3,-)
-%Vf(efb95c)
-%Vb(181915)
-%pb(0,0,40,3)
-
-%Vl(play,64,203,248,17,2)
+# Broad phosphor stage with track identification above and transport below.
+%Vl(play,12,8,296,28,3)
 %Vf(e4d8b4)
 %s%?it<%it|%fn>
 
-%Vl(play,64,222,248,17,2)
-%Vf(999a7f)
+%Vl(play,12,40,232,17,2)
+%Vf(efb95c)
 %s%?ia<%ia|Unknown artist>
+
+%Vl(play,252,43,56,9,0)
+%Vf(999a7f)
+%ar%?bc<CHG |>%bl%%
+
+%Vl(play,12,64,296,144,-)
+%Vf(e4d8b4)
+%Vb(090e0c)
+%pV(0,0,296,144,phosphor,090e0c,ffc66c,79d9a0)
+
+%Vl(play,12,214,296,17,2)
+%Vf(efb95c)
+%al%pc / %pt%ac%?mp<STOP|PLAY|PAUSE|FFWD|REW|REC|REC PAUSE|FM|FM MUTE>%arVOL %pvdB
+
+%Vl(play,12,235,296,2,-)
+%Vf(efb95c)
+%Vb(181915)
+%pb(0,0,296,2)
 
 %Vl(lock,0,0,320,240,-)
 %dr(0,0,320,240,181915)
